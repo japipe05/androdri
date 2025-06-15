@@ -7,7 +7,7 @@ services:
     ports:
       - "8000:8000"
     environment:
-      FRONTEND_ORIGIN: "http://localhost:3000"
+      FRONTEND_ORIGIN: "http://androdri-frontend:3001"
       SMTP_HOST: "smtp.gmail.com"
       SMTP_PORT: "587"
       SMTP_USER: "felipehuchija@gmail.com"
@@ -22,11 +22,11 @@ services:
     container_name: androdri-frontend
 
     ports:
-      - "3000:3000"
+      - "3001:3000"
     networks:
       - androdri-network
     environment:
-      - NEXT_PUBLIC_CONTACT_API_URL=http://localhost:8000/api/contact
+      - NEXT_PUBLIC_CONTACT_API_URL=http://androdri-backend:8000/api/contact
 
 networks:
   androdri-network:

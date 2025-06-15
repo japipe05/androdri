@@ -2,6 +2,11 @@
 FROM node:20 AS builder
 
 WORKDIR /app
+
+# Declarar la variable como ARG y pasarla a ENV para que Next.js la vea
+ARG NEXT_PUBLIC_CONTACT_API_URL
+ENV NEXT_PUBLIC_CONTACT_API_URL=$NEXT_PUBLIC_CONTACT_API_URL
+
 COPY package*.json ./
 RUN npm install
 COPY . .
