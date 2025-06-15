@@ -1,0 +1,35 @@
+services:
+  backend:
+    build:
+      context: ./Backend
+    container_name: androdri-backend
+    env_file:
+      - ./Backend/.env
+    ports:
+      - "8000:8000"
+    environment:
+      FRONTEND_ORIGIN: "http://localhost:3000"
+      SMTP_HOST: "smtp.gmail.com"
+      SMTP_PORT: "587"
+      SMTP_USER: "felipehuchija@gmail.com"
+      SMTP_PASSWORD: "yhjmdvmcvqidtxep"
+      RECEIVER_EMAIL: "felipehuchija@gmail.com"
+    networks:
+      - androdri-network
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: androdri-frontend
+    env_file:
+      - ./frontend/.env
+    ports:
+      - "3000:3000"
+    networks:
+      - androdri-network
+    environment:
+      - NEXT_PUBLIC_CONTACT_API_URL=http://localhost:8000/api/contact
+
+networks:
+  androdri-network:
+    driver: bridge
