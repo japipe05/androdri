@@ -3,8 +3,7 @@ services:
     build:
       context: ./Backend
     container_name: androdri-backend
-    env_file:
-      - ./Backend/.env
+
     ports:
       - "8000:8000"
     environment:
@@ -21,8 +20,7 @@ services:
     build:
       context: ./frontend
     container_name: androdri-frontend
-    env_file:
-      - ./frontend/.env
+
     ports:
       - "3000:3000"
     networks:
