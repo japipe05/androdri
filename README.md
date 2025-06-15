@@ -4,3 +4,8 @@
 
 docker login
 ./deploy.sh
+
+
+
+
+82.180.174.64
