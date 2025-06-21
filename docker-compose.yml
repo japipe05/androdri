@@ -1,20 +1,36 @@
 services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "8081:80"
+      - "8080:8080"
+    networks:
+      - androdri-network
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
   backend:
     build:
       context: ./Backend
     container_name: androdri-backend
-
-    ports:
-      - "8001:8000"
+    networks:
+      - androdri-network
     environment:
-      FRONTEND_ORIGIN: "https://androdri.com"
+      FRONTEND_ORIGIN: "https://androdr.com"
       SMTP_HOST: "smtp.gmail.com"
       SMTP_PORT: "587"
       SMTP_USER: "felipehuchija@gmail.com"
       SMTP_PASSWORD: "yhjmdvmcvqidtxep"
       RECEIVER_EMAIL: "felipehuchija@gmail.com"
-    networks:
-      - androdri-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=Host(`api.androdr.com`)"
+      - "traefik.http.services.backend.loadbalancer.server.port=8000"
 
   frontend:
     build:
@@ -22,14 +38,16 @@ services:
       args:
         NEXT_PUBLIC_CONTACT_API_URL: https://androdri.com/api/contact
     container_name: androdri-frontend
-
-    ports:
-      - "3001:3000"
     networks:
       - androdri-network
     environment:
       - NEXT_PUBLIC_CONTACT_API_URL=https://androdri.com/api/contact
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`androdr.com`)"
+      - "traefik.http.services.frontend.loadbalancer.server.port=3000"
 
 networks:
   androdri-network:
+    external: true
     driver: bridge
