@@ -3,6 +3,7 @@ services:
     build:
       context: ./Backend
     container_name: androdri-backend
+
     ports:
       - "8000:8000"
     environment:
@@ -21,6 +22,7 @@ services:
       args:
         NEXT_PUBLIC_CONTACT_API_URL: https://androdri.com/api/contact
     container_name: androdri-frontend
+
     ports:
       - "3001:3000"
     networks:
