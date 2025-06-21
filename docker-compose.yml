@@ -50,4 +50,3 @@ services:
 networks:
   androdri-network:
     external: true
-    driver: bridge
