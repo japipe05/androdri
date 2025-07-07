@@ -64,7 +64,7 @@ export default function Footer() {
 
         {/* Derechos */}
         <p className="text-xs text-[var(--color-foreground)]/70">
-          © {new Date().getFullYear()} Androdri S.A.S. Todos los derechos reservados.
+          © {new Date().getFullYear()} Androdri S.A.S. Todos los derechos reservados. 2025/07/06 19:05
         </p>
       </div>
     </footer>

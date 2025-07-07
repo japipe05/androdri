@@ -1,1 +1,24 @@
-<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1155 1000"><path d="m577.3 0 577.4 1000H0z" fill="#fff"/></svg>
+
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Teléfono -->
+  <rect x="128" y="32" width="256" height="448" rx="40" ry="40" fill="#4b5879" />
+  <rect x="144" y="80" width="224" height="336" fill="#e6f1fd" />
+  <circle cx="256" cy="450" r="18" fill="#d94c4c" stroke="black" stroke-width="6"/>
+
+  <!-- Burbujas de chat -->
+  <!-- Verde -->
+  <path d="M80 128 h120 a24 24 0 0 1 24 24 v80 a4 4 0 0 1 -7 3 l-36 -30 h-101 a24 24 0 0 1 -24 -24 v-52 a24 24 0 0 1 24 -24 z" fill="#2ecc71" stroke="black" stroke-width="8"/>
+  <line x1="90" y1="152" x2="180" y2="152" stroke="black" stroke-width="8" stroke-linecap="round"/>
+  <line x1="90" y1="176" x2="180" y2="176" stroke="black" stroke-width="8" stroke-linecap="round"/>
+  <line x1="90" y1="200" x2="180" y2="200" stroke="black" stroke-width="8" stroke-linecap="round"/>
+
+  <!-- Amarilla -->
+  <path d="M312 240 h124 a20 20 0 0 1 20 20 v56 a20 20 0 0 1 -20 20 h-83 l-40 34 a3 3 0 0 1 -5 -2 v-108 a20 20 0 0 1 20 -20 z" fill="#fcd93a" stroke="black" stroke-width="8"/>
+
+  <!-- Azul -->
+  <rect x="168" y="300" width="80" height="80" fill="#72e8ff" stroke="black" stroke-width="8"/>
+
+  <!-- Notificaciones -->
+  <circle cx="442" cy="92" r="18" fill="#ff5b5b"/>
+  <circle cx="72" cy="392" r="22" fill="#ff5b5b"/>
+</svg>

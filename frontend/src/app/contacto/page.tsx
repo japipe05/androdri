@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-
+export const dynamic="force-dynamic";
 export default function Contacto() {
   const [form, setForm] = useState({
     name: "",
@@ -27,8 +27,10 @@ export default function Contacto() {
     }
 
     try {
-      console.log("NEXT_PUBLIC_CONTACT_API_URL: "+process.env.NEXT_PUBLIC_CONTACT_API_URL)
-      await axios.post(process.env.NEXT_PUBLIC_CONTACT_API_URL as string, form);
+      const url = `${process.env.NEXT_PUBLIC_CONTACT_API_URL}/api/contact`;
+      console.log("URL completa:", url);
+      await axios.post(url, form);
+
       setStatus("success");
       setForm({ name: "", email: "", message: "" });
     } catch (error) {
@@ -45,6 +47,7 @@ export default function Contacto() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="w-full max-w-3xl space-y-10"
       >
+      
         <h1 className="text-3xl md:text-4xl font-bold text-[#2874A6] text-center">
           Contáctanos
         </h1>
