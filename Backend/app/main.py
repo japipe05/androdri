@@ -6,10 +6,9 @@ from app.domain.models import ContactForm
 from app.config.settings import settings
 app = FastAPI()
 
-print("[settings.FRONTEND_ORIGIN"+settings.FRONTEND_ORIGIN)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[settings.FRONTEND_ORIGIN],
+    allow_origins=["*"],
     allow_methods=["*"],
     allow_headers=["*"],
 )

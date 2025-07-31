@@ -13,6 +13,12 @@ docker build -t japipe05/androdri-frontend:test ./frontend
 docker build -t japipe05/androdri-backend:v1.0.0 ./backend
 docker build -t japipe05/androdri-frontend:v1.0.0 ./frontend
 
+docker build `
+--build-arg NEXT_PUBLIC_CONTACT_API_URL="https://androdri-backend-production.up.railway.app" `
+-t japipe05/androdri-frontend:v1.0.0 `
+./frontend
+
+
 # Desarrollo
 docker push japipe05/androdri-backend:dev
 docker push japipe05/androdri-frontend:dev

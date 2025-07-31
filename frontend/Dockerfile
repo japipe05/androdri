@@ -3,6 +3,12 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Recibe argumentos desde Railway
+ARG NEXT_PUBLIC_CONTACT_API_URL
+
+# Expone variables para que estén disponibles en el build
+ENV NEXT_PUBLIC_CONTACT_API_URL=$NEXT_PUBLIC_CONTACT_API_URL
+
 # Copia los archivos necesarios para instalar dependencias
 COPY package.json package-lock.json* ./ 
 COPY tsconfig.json ./ 
@@ -33,7 +39,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./next.config.js
 
 # Expone el puerto usado por la app
-EXPOSE 3000
+EXPOSE 3002
 
 # Comando para iniciar la app en modo producción
 CMD ["npm", "start"]
