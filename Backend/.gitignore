@@ -1,0 +1,55 @@
+# ----------------------------
+# Python
+# ----------------------------
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pkl
+*.log
+
+# Entornos virtuales
+.venv/
+venv/
+ENV/
+env/
+
+# Archivos de configuración de IDE
+.vscode/
+.idea/
+*.iml
+
+# Coverage / Test reports
+htmlcov/
+.coverage
+coverage.xml
+*.cover
+.cache
+.pytest_cache/
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de build y distribución
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Archivos de dotenv (variables sensibles)
+.env
+.env.*
+*.env
+
+# Archivos de VSCode / Debugging
+.vscode/
+*.code-workspace
+
+# Archivos de docker (si los usas)
+*.pid
+*.log
+*.db
+
+# Archivos de Jupyter
+.ipynb_checkpoints/

@@ -14,8 +14,8 @@ RUN pip install --upgrade pip && pip install -r requirements.txt
 # Copiar código
 COPY . .
 
-# Exponer puerto
+# Exponer puerto (opcional, solo para documentación)
 EXPOSE 8000
 
-# Comando de inicio
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Comando de inicio usando variable de entorno
+CMD ["sh", "-c", "uvicorn app.main:app --host 0.0.0.0 --port ${PORT}"]

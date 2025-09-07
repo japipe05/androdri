@@ -1,3 +1,9 @@
+# Ejecutar la aplicacion de python
+python -m uvicorn app.main:app --reload
+# Ejecutar aplicacion en nextjs
+npm run dev
+
+
 > docker builder prune --all
 docker login
 
@@ -11,10 +17,9 @@ docker build -t japipe05/androdri-frontend:test ./frontend
 
 # Producción (usa versión semántica)
 docker build -t japipe05/androdri-backend:v1.0.0 ./backend
-docker build -t japipe05/androdri-frontend:v1.0.0 ./frontend
 
 docker build `
---build-arg NEXT_PUBLIC_CONTACT_API_URL="https://androdri-backend-production.up.railway.app" `
+--build-arg NEXT_PUBLIC_CONTACT_API_URL="https://api.androdri.com" `
 -t japipe05/androdri-frontend:v1.0.0 `
 ./frontend
 

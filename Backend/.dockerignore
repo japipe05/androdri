@@ -1,2 +1,46 @@
+# Carpetas de dependencias / cache
 __pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pytest_cache/
+*.mypy_cache/
+*.tox/
+*.ruff_cache/
+
+# Entornos virtuales
+.venv/
+env/
+venv/
+
+# Archivos de configuración locales
 .env
+.env.*.local
+
+# Archivos de Git
+.git
+.gitignore
+
+# Archivos de Docker locales
+.dockerignore
+Dockerfile
+
+# Coverage y reportes
+.coverage
+coverage.xml
+htmlcov/
+
+# Archivos de IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Tests (si no los quieres dentro de la imagen)
+tests/
