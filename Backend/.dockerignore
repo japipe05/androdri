@@ -1,46 +1,56 @@
-# Carpetas de dependencias / cache
+# Carpetas de Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.pytest_cache/
-*.mypy_cache/
-*.tox/
-*.ruff_cache/
 
-# Entornos virtuales
+# Virtual envs
 .venv/
-env/
 venv/
+env/
+ENV/
 
-# Archivos de configuración locales
-.env
-.env.*.local
+# Archivos de paquetes
+*.egg-info/
+*.egg
 
-# Archivos de Git
-.git
-.gitignore
+# Archivos de compilación
+build/
+dist/
 
-# Archivos de Docker locales
-.dockerignore
-Dockerfile
-
-# Coverage y reportes
-.coverage
-coverage.xml
-htmlcov/
-
-# Archivos de IDE
-.vscode/
-.idea/
-*.swp
-
-# Logs
-*.log
-
-# Archivos del sistema
+# Archivos del sistema operativo
 .DS_Store
 Thumbs.db
 
-# Tests (si no los quieres dentro de la imagen)
-tests/
+# IDEs
+.vscode/
+.idea/
+
+# Logs y bases de datos locales
+*.log
+*.sqlite3
+*.db
+
+# Archivos de configuración de git
+.git
+.gitignore
+
+# Docker
+docker-compose.override.yml
+*.pid
+*.seed
+*.bak
+*.swp
+
+# Tests y cobertura
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Archivos temporales
+*.tmp
+*.swp

@@ -1,55 +1,63 @@
-# ----------------------------
-# Python
-# ----------------------------
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.pkl
-*.log
+*.py[cod]
+*$py.class
 
-# Entornos virtuales
+# C extensions
+*.so
+
+# Virtual environment
 .venv/
+env/
 venv/
 ENV/
-env/
 
-# Archivos de configuración de IDE
-.vscode/
-.idea/
-*.iml
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Coverage / Test reports
-htmlcov/
+# Logs and databases
+*.log
+*.sqlite3
+*.db
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
 .coverage
+.coverage.*
+.cache
+nosetests.xml
 coverage.xml
 *.cover
-.cache
-.pytest_cache/
+.hypothesis/
 
-# Archivos temporales del sistema
+# VSCode / PyCharm
+.vscode/
+.idea/
+
+# OS generated files
 .DS_Store
 Thumbs.db
 
-# Archivos de build y distribución
-build/
-dist/
-*.egg-info/
-.eggs/
-
-# Archivos de dotenv (variables sensibles)
-.env
-.env.*
-*.env
-
-# Archivos de VSCode / Debugging
-.vscode/
-*.code-workspace
-
-# Archivos de docker (si los usas)
+# Docker
 *.pid
-*.log
-*.db
-
-# Archivos de Jupyter
-.ipynb_checkpoints/
+*.seed
+*.bak
+*.swp
+docker-compose.override.yml
