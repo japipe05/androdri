@@ -1,13 +1,15 @@
 import os
 import json
-from pydantic import BaseSettings, AnyHttpUrl
 from typing import List
+from pydantic import AnyHttpUrl
+from pydantic_settings import BaseSettings
+
 
 class Settings(BaseSettings):
     APP_NAME: str = "FastAPI Androdri"
     APP_VERSION: str = "1.0.0"
     APP_DESCRIPTION: str = "Backend para Androdri"
-
+    PORT: int = 8000 
     # CORS
     ALLOWED_ORIGINS: List[str] = ["http://127.0.0.1:8000", "http://localhost:3000"]
 
@@ -32,7 +34,7 @@ class Settings(BaseSettings):
 
     @classmethod
     def from_env(cls):
-        # handle ALLOWED_ORIGINS as json list if provided as string
+        # Manejar ALLOWED_ORIGINS como JSON si viene como string
         raw = cls()
         if isinstance(raw.ALLOWED_ORIGINS, str):
             try:
@@ -40,5 +42,6 @@ class Settings(BaseSettings):
             except Exception:
                 raw.ALLOWED_ORIGINS = [raw.ALLOWED_ORIGINS]
         return raw
+
 
 settings = Settings.from_env()
