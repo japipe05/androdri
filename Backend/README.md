@@ -40,13 +40,18 @@ pip install -r requirements.txt --upgrade
 uvicorn app.main:app --reload
 
 # test
-coverage run -m pytest; coverage json -o reports/coverage.json; python tools/coverage_dashboard.py; coverage report -m; coverage html
+coverage run -m pytest; coverage json -o reports/coverage.json; python dash_test/coverage_dashboard.py; coverage report -m; coverage html
 
-
-To do:
-Crear contenedores y probarlo
-
+# subir a docker
 docker build -t japipe05/androdri-backend:dev .
 docker push japipe05/androdri-backend:dev
 
-docker-compose -f docker-compose.override.yml up --build -d 
+# probarlo en docker local
+docker run -d -p 8000:8000 --name androdri-backend `
+  -e SMTP_HOST=smtp.gmail.com `
+  -e SMTP_PORT=587 `
+  -e SMTP_USER=felipehuchija@gmail.com `
+  -e SMTP_PASSWORD=yhjmdvmcvqidtxep `
+  -e JWT_SECRET_KEY=mi_clave_secreta_jwt_androdri1236546 `
+  japipe05/androdri-backend:dev
+

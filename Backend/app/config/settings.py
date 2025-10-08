@@ -2,9 +2,10 @@ from pydantic_settings import BaseSettings
 from typing import List
 
 class Settings(BaseSettings):
-    APP_NAME: str = "FastAPI Androdri"
-    APP_VERSION: str = "1.0.0"
-    APP_DESCRIPTION: str = "Backend para la aplicación Androdri"
+    APP_NAME: str 
+    APP_VERSION: str 
+    APP_DESCRIPTION: str 
+    APP_FECHAMOD: str
     ALLOWED_ORIGINS: List[str] = [
         "http://127.0.0.1:8000",
         "http://localhost:3000",

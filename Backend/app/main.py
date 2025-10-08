@@ -24,4 +24,10 @@ app.include_router(contact_router.router)
 
 @app.get("/")
 def root():
-    return {"message": f"{settings.APP_NAME} está en ejecución 🚀"}
+    return {
+        "message": f"{settings.APP_NAME} está en ejecución 🚀",
+        "app_name": settings.APP_NAME,
+        "app_version": settings.APP_VERSION,
+        "app_description": settings.APP_DESCRIPTION,
+        "fecha_modificacion": settings.APP_FECHAMOD,
+    }
