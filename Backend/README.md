@@ -1,45 +1,52 @@
-androdri-fastapi/
+# Estructuras Carpetas
+androdri_api/
+│
 ├── app/
-│   ├── main.py
-│   ├── api/
-│   │   └── __init__.py
-│   ├── routers/
-│   │   ├── __init__.py
-│   │   ├── email_router.py
-│   │   └── auth_router.py
-│   ├── services/
-│   │   ├── __init__.py
-│   │   └── email_service.py
 │   ├── config/
-│   │   ├── __init__.py
-│   │   └── settings.py
+│   │   ├── settings.py
+│   │
 │   ├── models/
-│   │   ├── __init__.py
-│   │   └── schemas.py
+│   │   ├── email_model.py
+│   │
+│   ├── routers/
+│   │   ├── contact_router.py
+│   │
+│   ├── services/
+│   │   ├── email_service.py
+│   │
 │   ├── utils/
-│   │   ├── __init__.py
-│   │   ├── compress.py
-│   │   ├── security.py
-│   │   └── exceptions.py
-│   └── tests/
-│       └── test_email.py
-├── requirements.txt
-├── .env.example
-└── README.md
+│   │   ├── compress_utils.py
+│   │   ├── jwt_utils.py
+│   │
+│   ├── main.py
+│
+├── tests/
+│   ├── test_contact_api.py
+│
+├── .env
+└── requirements.txt
 
+# Patrones
+✔️ Factory Pattern → para inicializar la configuración (settings.py)
+✔️ Service Layer Pattern → separación de la lógica de negocio en services/email_service.py
+✔️ Utility Pattern → para funciones reutilizables (utils/compress_utils.py, utils/jwt_utils.py)
+✔️ Router Pattern (FastAPI Modularization) → para organizar endpoints (routers/contact_router.py)
+
+# ejecutra requerimientos
 pip install -r requirements.txt
 pip install -r requirements.txt --upgrade
 
-uvicorn app.main:app --reload --port 8000
+# Ejecutar aplicacion
+uvicorn app.main:app --reload
 
-: todo
-poner contraseña y validar como el auth combinarlo cuando envie el correo
+# test
+coverage run -m pytest; coverage json -o reports/coverage.json; python tools/coverage_dashboard.py; coverage report -m; coverage html
 
 
-
-
-probar en desarrollo
+To do:
+Crear contenedores y probarlo
 
 docker build -t japipe05/androdri-backend:dev .
 docker push japipe05/androdri-backend:dev
+
 docker-compose -f docker-compose.override.yml up --build -d 

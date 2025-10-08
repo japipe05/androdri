@@ -1,12 +1,15 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.config.settings import settings
-from app.routers.email_router import router as email_router
-from app.routers.auth_router import router as auth_router
+from app.routers import contact_router, auth_router  # 👈 Importa el nuevo router
 
-app = FastAPI(title=settings.APP_NAME, description=settings.APP_DESCRIPTION, version=settings.APP_VERSION)
+app = FastAPI(
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
+    description=settings.APP_DESCRIPTION
+)
 
-# CORS
+# Middleware CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
@@ -16,10 +19,9 @@ app.add_middleware(
 )
 
 # Routers
-app.include_router(auth_router)
-app.include_router(email_router)
-
+app.include_router(auth_router.router)      # 👈 Añádelo primero
+app.include_router(contact_router.router)
 
 @app.get("/")
 def root():
-    return {"app": settings.APP_NAME, "version": settings.APP_VERSION}
+    return {"message": f"{settings.APP_NAME} está en ejecución 🚀"}

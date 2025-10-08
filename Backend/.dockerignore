@@ -1,56 +1,23 @@
-# Carpetas de Python
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-
-# Virtual envs
-.venv/
-venv/
-env/
-ENV/
-
-# Archivos de paquetes
-*.egg-info/
-*.egg
-
-# Archivos de compilación
-build/
-dist/
-
-# Archivos del sistema operativo
-.DS_Store
-Thumbs.db
-
-# IDEs
+*.db
+*.sqlite3
+*.log
+*.tmp
+*.zip
+*.7z
+.env
+.env.*
+htmlcov/
+coverage/
+reports/
+.pytest_cache/
+.git/
 .vscode/
 .idea/
-
-# Logs y bases de datos locales
-*.log
-*.sqlite3
-*.db
-
-# Archivos de configuración de git
-.git
-.gitignore
-
-# Docker
-docker-compose.override.yml
-*.pid
-*.seed
-*.bak
-*.swp
-
-# Tests y cobertura
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-.hypothesis/
-
-# Archivos temporales
-*.tmp
-*.swp
+tests/
+venv/
+dist/
+build/

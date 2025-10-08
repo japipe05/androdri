@@ -1,29 +1,52 @@
-# Imagen base de Python
-FROM python:3.11-slim
+# ==========================================================
+# 🐍 Etapa 1: Build - instalación de dependencias
+# ==========================================================
+FROM python:3.11-slim AS builder
 
-# Configuración de directorio de trabajo
+# Desactivar buffer de salida y asegurar UTF-8
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    LANG=C.UTF-8
+
+# Crear directorio de la app
 WORKDIR /app
 
-# Instalar dependencias del sistema necesarias
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential \
-    gcc \
-    libffi-dev \
-    && rm -rf /var/lib/apt/lists/*
-
-# Copiar requirements.txt primero para aprovechar cache
+# Copiar requerimientos e instalarlos
 COPY requirements.txt .
 
-# Instalar dependencias de Python
-RUN pip install --no-cache-dir -r requirements.txt
+# Instalar dependencias en un directorio temporal (para reducir tamaño final)
+RUN pip install --no-cache-dir --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
-# Copiar todo el proyecto
+# ==========================================================
+# 🏗️ Etapa 2: Runtime - contenedor final más liviano
+# ==========================================================
+FROM python:3.11-slim
+
+# Variables de entorno
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    LANG=C.UTF-8
+
+# Crear usuario no root por seguridad
+RUN adduser --disabled-password --gecos '' fastapiuser
+
+WORKDIR /app
+
+# Copiar dependencias desde builder
+COPY --from=builder /usr/local /usr/local
+
+# Copiar el código fuente
 COPY . .
 
-# Exponer el puerto
+# Dar permisos a logs, tmp, etc.
+RUN mkdir -p /app/tmp && chown -R fastapiuser:fastapiuser /app
+
+# Cambiar usuario
+USER fastapiuser
+
+# Exponer puerto FastAPI
 EXPOSE 8000
 
-# Comando para arrancar FastAPI con Uvicorn
-#CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-
+# Comando por defecto (Uvicorn)
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

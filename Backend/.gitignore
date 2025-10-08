@@ -1,63 +1,96 @@
-# Byte-compiled / optimized / DLL files
+# ========================
+# 🐍 Python general
+# ========================
 __pycache__/
 *.py[cod]
-*$py.class
-
-# C extensions
-*.so
-
-# Virtual environment
-.venv/
-env/
-venv/
-ENV/
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# Logs and databases
+*.pyo
+*.pyd
+*.pkl
 *.log
 *.sqlite3
 *.db
+*.pyc
 
-# PyInstaller
-*.manifest
-*.spec
-
-# Unit test / coverage reports
+# ========================
+# 🧪 Testing y Coverage
+# ========================
+htmlcov/
 .coverage
 .coverage.*
-.cache
-nosetests.xml
+.cache/
+.pytest_cache/
+reports/
 coverage.xml
-*.cover
-.hypothesis/
+coverage.json
 
-# VSCode / PyCharm
+# ========================
+# 📦 Dependencias
+# ========================
+env/
+venv/
+ENV/
+env.bak/
+.venv/
+pip-wheel-metadata/
+*.egg-info/
+.eggs/
+dist/
+build/
+wheels/
+
+# ========================
+# ⚙️ IDEs y Editores
+# ========================
 .vscode/
 .idea/
+*.swp
+*.swo
 
-# OS generated files
+# ========================
+# 🧰 Sistema operativo
+# ========================
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Docker
+# ========================
+# 🪶 FastAPI y Uvicorn
+# ========================
 *.pid
-*.seed
-*.bak
-*.swp
-docker-compose.override.yml
+*.sock
+
+# ========================
+# 🔐 Configuración sensible
+# ========================
+.env
+*.env.local
+.env.*
+
+# ========================
+# 📊 Temporal / Cache
+# ========================
+tmp/
+temp/
+*.tmp
+
+# ========================
+# 🗜️ Archivos generados (ZIP / 7z)
+# ========================
+*.zip
+*.7z
+
+# ========================
+# 🧠 Modelos / datos sensibles
+# ========================
+*.key
+*.pem
+*.crt
+*.csr
+*.pfx
+*.cer
+*.json.secret
+
+# ========================
+# 🧪 Notebooks temporales
+# ========================
+*.ipynb_checkpoints
