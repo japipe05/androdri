@@ -1,0 +1,32 @@
+# Entorno y dependencias
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Virtual environments
+venv/
+.env/
+.venv/
+
+# Archivos de desarrollo
+.idea/
+.vscode/
+*.log
+
+# Archivos temporales
+*.sqlite3
+*.db
+*.pid
+
+# Coverage y testing
+htmlcov/
+.tox/
+.pytest_cache/
+.coverage
+.cache
+
+# Docker
+*.bak
+docker-compose.override.yml

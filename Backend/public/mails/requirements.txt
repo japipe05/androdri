@@ -20,7 +20,6 @@ PyJWT==2.9.0
 # 📦 Compresión con contraseña (ZIP y 7z)
 # ===========================
 pyzipper==0.3.6      # Para .zip (AES o ZipCrypto)
-py7zr==0.21.0        # Para .7z (AES-256)
 
 # ===========================
 # 🧪 Testing y cobertura

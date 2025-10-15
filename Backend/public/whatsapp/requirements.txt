@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+twilio
+pydantic-settings
+python-dotenv
+pytest
+coverage
+pandas
+plotly

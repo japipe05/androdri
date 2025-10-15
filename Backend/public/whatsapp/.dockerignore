@@ -1,0 +1,16 @@
+# Ignorar todo lo que no sea necesario dentro del contenedor
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.bak
+.env
+.git
+.gitignore
+.vscode
+.idea
+tests
+README.md
