@@ -3,8 +3,11 @@ Hola buen día ¿Cómo está?
 
 Creame una fast api que envie mensajes por whatsapp teniendo encuenta lo siguiente:
 
-1. utiliza authorization beares token  mediente el .env JWT_SECRET_WHATSAP
-y TWILIO el servicio de envio
+1. utiliza authorization Authorization con JWT_SECRET_WHATSAP como lo muestra la imagen
+
+2. .env
+JWT_SECRET_WHATSAP
+#y TWILIO el servicio de envio
 TWILIO_ACCOUNT_SID=AC2e8a12693e513dab18627e6a491184fe
 TWILIO_AUTH_TOKEN=82c96cfd3d134ac4163ef6fe85ec09e3
 TWILIO_WHATSAPP_NUMBER=+14155238886

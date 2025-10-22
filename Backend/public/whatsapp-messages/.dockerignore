@@ -1,49 +1,12 @@
-# Ignorar dependencias locales y caches
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 *.db
 *.sqlite3
-*.log
-*.bak
-
-# Entornos virtuales
-.venv/
-env/
-venv/
-ENV/
-
-# Configuración local y secretos
 .env
-.env.*
-!.env.example
-
-# Archivos de Git y CI/CD
-.git/
+.git
 .gitignore
-.github/
-.gitlab/
-.idea/
-.vscode/
-
-# Archivos de tests y dashboards
-/tests/
+.vscode
+tests/
 dash_test/
-
-# Archivos de compilación o docs
-*.egg-info/
-dist/
-build/
-docs/
-*.md~
-
-# Cobertura y reports
-.coverage
-htmlcov/
-coverage.xml
-pytest_cache/
-
-# Docker related
-Dockerfile.*
-docker-compose.*
