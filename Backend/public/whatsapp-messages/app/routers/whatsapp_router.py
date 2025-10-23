@@ -1,28 +1,32 @@
-# app/routers/whatsapp_router.py
-from fastapi import APIRouter, Depends, Header, HTTPException, status, Request
-from app.models.message_model import WhatsAppMessage
-from app.services.whatsapp_service import send_whatsapp_message
+# ------------------------
+# File: app/routers/whatsapp_router.py
+# ------------------------
+from fastapi import APIRouter, Depends, HTTPException, status, Request, Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from app.models.whatsapp_model import WhatsAppSendRequest
 from app.utils.jwt_utils import verify_token
+from app.services.whatsapp_service import whatsapp_service
 from app.utils.rate_limiter import check_rate_limit
 
-router = APIRouter(prefix="/api/whatsapp", tags=["WhatsApp"])
+router = APIRouter(prefix="/api/whatsapp/v1", tags=["whatsapp"])
 
-@router.post("/v1")
-def send_message(request: Request, data: WhatsAppMessage, authorization: str = Header(...)):
-    # Validar token JWT
-    if not authorization.startswith("Bearer "):
-        raise HTTPException(status_code=401, detail="Invalid authorization header")
-    
-    token = authorization.split(" ")[1]
-    verify_token(token)
+# Configuración del esquema Bearer para Swagger (OpenAPI)
+bearer_scheme = HTTPBearer()
 
-    # Rate Limiting por dirección IP
-    client_ip = request.client.host
-    check_rate_limit(client_ip)
+# Dependencia para validar JWT
+async def jwt_bearer(credentials: HTTPAuthorizationCredentials = Security(bearer_scheme)):
+    if not credentials:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Missing Authorization header")
 
-    # Envío de mensaje
-    try:
-        response = send_whatsapp_message(data.phone_number, data.message)
-        return {"success": True, "response": response}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    token = credentials.credentials  # Obtiene el token sin el prefijo 'Bearer '
+    return verify_token(token)
+
+# Endpoint principal
+@router.post("/send")
+async def send_whatsapp(payload: WhatsAppSendRequest, request: Request, _payload=Depends(jwt_bearer)):
+    # Control de rate limit (máx. 10 solicitudes / 60 segundos por IP)
+    check_rate_limit(request)
+
+    # Lógica de envío del mensaje
+    result = whatsapp_service.send_message(to=payload.phone_number, body=payload.message)
+    return {"ok": True, "result": result}

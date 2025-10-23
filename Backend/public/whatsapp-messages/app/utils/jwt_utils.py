@@ -1,21 +1,28 @@
-# app/utils/jwt_utils.py
+
+# ------------------------
+# File: app/utils/jwt_utils.py
+# ------------------------
+import time
 import jwt
-from datetime import datetime, timedelta
 from fastapi import HTTPException, status
 from app.config.settings import settings
 
-ALGORITHM = "HS256"
+def create_access_token(subject: str, expires_in: int | None = None) -> str:
+    if expires_in is None:
+        expires_in = settings.JWT_EXPIRES_SECONDS
+    now = int(time.time())
+    payload = {
+        "sub": subject,
+        "iat": now,
+        "exp": now + expires_in,
+        "iss": settings.APP_NAME,
+    }
+    token = jwt.encode(payload, settings.JWT_SECRET_WHATSAP, algorithm=settings.JWT_ALGORITHM)
+    return token
 
-def create_token(data: dict, expires_delta: timedelta = timedelta(hours=1)):
-    to_encode = data.copy()
-    expire = datetime.utcnow() + expires_delta
-    to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.JWT_SECRET_WHATSAP, algorithm=ALGORITHM)
-    return encoded_jwt
-
-def verify_token(token: str):
+def verify_token(token: str) -> dict:
     try:
-        payload = jwt.decode(token, settings.JWT_SECRET_WHATSAP, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.JWT_SECRET_WHATSAP, algorithms=[settings.JWT_ALGORITHM])
         return payload
     except jwt.ExpiredSignatureError:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token expired")

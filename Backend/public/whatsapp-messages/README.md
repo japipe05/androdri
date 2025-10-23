@@ -1,20 +1,12 @@
 prompt
 Hola buen día ¿Cómo está?
 
-Creame una fast api que envie mensajes por whatsapp teniendo encuenta lo siguiente:
+Creame una fast api 3 apis donde el mas importante es que envie mensajes por whatsapp teniendo encuenta lo siguiente:
+http://127.0.0.1:8000/
+http://127.0.0.1:8000/api/token-whatsapp/v1/
+http://127.0.0.1:8000/api/whatsapp/v1/
 
-1. utiliza authorization Authorization con JWT_SECRET_WHATSAP como lo muestra la imagen
-
-2. .env
-JWT_SECRET_WHATSAP
-#y TWILIO el servicio de envio
-TWILIO_ACCOUNT_SID=AC2e8a12693e513dab18627e6a491184fe
-TWILIO_AUTH_TOKEN=82c96cfd3d134ac4163ef6fe85ec09e3
-TWILIO_WHATSAPP_NUMBER=+14155238886
-APP_NAME=FastAPI Androdri
-APP_VERSION=1.0.0
-APP_DESCRIPTION=Backend para la aplicación Androdri
-APP_FECHAMOD=2025/10/08 9:27:01
+1. utiliza authorization JWT Bearer
 
 # CORS
 ALLOWED_ORIGINS=["http://127.0.0.1:8000","http://localhost:3000","https://api.androdri.com"]
@@ -59,80 +51,119 @@ androdri_api/
 ├── Dockerfile
 ├── README.md
 └── requirements.txt
------------------
-androdri_api/
-│
-├── app/
-│   ├── config/
-│   │   └── settings.py
-│   │
-│   ├── models/
-│   │   └── message_model.py
-│   │
-│   ├── routers/
-│   │   └── whatsapp_router.py
-│   │
-│   ├── services/
-│   │   └── whatsapp_service.py
-│   │
-│   ├── utils/
-│   │   ├── jwt_utils.py
-│   │   └── rate_limiter.py
-│   │
-│   ├── main.py
-│
-├── dash_test/
-│   └── coverage_dashboard.py
-├── tests/
-│   └── test_whatsapp_api.py
-│
-├── .dockerignore
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── README.md
-└── requirements.txt
+
+.env
+JWT_SECRET_WHATSAP=your_jwt_secret_here
+#y TWILIO el servicio de envio
+TWILIO_ACCOUNT_SID=AC2e8a12693e513dab18627e6a491184fe
+TWILIO_AUTH_TOKEN=82c96cfd3d134ac4163ef6fe85ec09e3
+TWILIO_WHATSAPP_NUMBER=+14155238886
+APP_NAME=FastAPI Androdri
+APP_VERSION=1.0.0
+APP_DESCRIPTION=Backend para la aplicación Androdri
+APP_FECHAMOD=2025/10/08 9:27:01
+RATE_LIMIT_MAX=10
+RATE_LIMIT_WINDOW_SECONDS=60
 
 
-Qué hace cada carpeta / archivo
+--------------------
 
-app/config/settings.py — carga variables de entorno (.env) y expone configuración (Singleton).
+# test
+coverage run -m pytest; coverage json -o reports/coverage.json; python dash_test/coverage_dashboard.py; coverage report -m; coverage html
 
-app/models/message_model.py — modelos Pydantic para la API (entrada/salida).
+# subir a docker
+docker build -t japipe05/androdri-backend-contactanos:dev .
+docker push japipe05/androdri-backend-contactanos:dev
 
-app/routers/whatsapp_router.py — rutas / endpoints (separación de responsabilidades).
+# probarlo en docker local
 
-app/services/whatsapp_service.py — capa de servicio que habla con Twilio (Adapter pattern).
+docker run -d `
+  --name androdri-backend-contactanos `
+  -p 8000:8000 `
+  -e SMTP_HOST="smtp.gmail.com" `
+  -e SMTP_PORT="587" `
+  -e SMTP_USER="felipehuchija@gmail.com" `
+  -e SMTP_PASSWORD="yhjmdvmcvqidtxep" `
+  -e JWT_SECRET_KEY="mi_clave_secreta_jwt_androdri1236546" `
+  japipe05/androdri-backend-contactanos:dev
 
-app/utils/jwt_utils.py — manejo de creación/validación de JWT Bearer.
+Estructura de carpetas (lo que implementé y qué hace cada carpeta)
 
-app/utils/rate_limiter.py — limitador por "computador" (IP) permitiendo max 10 solicitudes en 60s.
+androdri_api/ (raíz del repo)
 
-app/main.py — arranque de FastAPI, CORS, dependencias globales y handlers.
+app/
 
-tests/test_whatsapp_api.py — pruebas básicas usando httpx y pytest.
+config/ – settings.py: configuración central (Pydantic BaseSettings). Lee .env.
 
-dash_test/coverage_dashboard.py — (placeholder) script de ejemplo para integraciones de dashboard.
+models/ – Pydantic models (DTOs) para requests/responses (whatsapp_model.py, token_model.py).
 
-Dockerfile, requirements.txt, .env.example — despliegue.
+routers/ – rutas / endpoints (separadas por responsabilidad):
 
-Patrones de software utilizados
+token_router.py — endpoint de emisión de token
 
-Dependency Injection — FastAPI Depends para inyectar comprobaciones (auth, rate-limit, servicios). ✔️
+whatsapp_router.py — endpoint de envío (aplica verificación JWT + rate limiter)
 
-Service Layer / Adapter — whatsapp_service.py encapsula Twilio (mapea API externa a interfaz local). ✔️
+services/ – lógica de negocio, integración con proveedores:
 
-Singleton (Configuration) — settings.py carga .env una vez y reutiliza la instancia. ✔️
+whatsapp_service.py — adapter para Twilio (o simulador)
 
-DTOs (Data Transfer Objects) — Pydantic models para validar entrada/salida. ✔️
+utils/
 
-Rate Limiter (Decorator/Dependency pattern) — lógica separada como dependencia reutilizable. ✔️
+jwt_utils.py — creación/verificación de JWT
 
-Exception Handling / Centralized HTTP Errors — uso de HTTPException, manejo de errores en servicio. ✔️
+rate_limiter.py — limitador por IP (in-memory)
 
-Fail Fast — validación temprana de payloads y permisos. ✔️
+main.py — arranque de la aplicación, CORS, inclusión de routers y handlers globales
 
+dash_test/ — (placeholder) para dashboards/monitoring (dejé coverage_dashboard.py como marcador)
+
+tests/ — pruebas unitarias/integración básicas (test_whatsapp_api.py)
+
+.env.example, Dockerfile, requirements.txt, README.md
+
+
+
+Patrones de software utilizados (y dónde)
+
+Separation of Concerns (SoC) — routers / services / utils / models están separados para mantener responsabilidades claras.
+
+Dependency Injection (DI) — uso de las dependencias de FastAPI (p. ej. dependencia para verificar JWT) para inyectar comportamiento (autenticación, rate limiter).
+
+Adapter Pattern — whatsapp_service.py actúa como adaptador para Twilio; en desarrollo puede simular sin cambiar el router.
+
+Singleton (práctico) — settings (Pydantic BaseSettings) usado centralmente como única fuente de configuración.
+
+DTOs / Validation — Pydantic models como contratos (entrada/salida) (Data Transfer Objects).
+
+Fail-safe / graceful degradation — si Twilio no está configurado la capa de servicio devuelve una respuesta simulada para permitir desarrollo local y testing.
+
+Anti-Corruption Layer (ACL) idea ligera — la capa services protege al resto de la app de detalles del proveedor (Twilio).
+
+Seguridad y JWT
+
+Endpoint /api/token-whatsapp/v1/ devuelve JWT (HS256) cuando posteas { "api_key": "<valor>" } y el valor coincide con JWT_SECRET_WHATSAP en .env (esto es para simplificar pruebas). El token es emitido con exp.
+
+En producción se recomienda un mecanismo con client_id + client_secret o OAuth2 client credentials, y no usar la misma clave como api_key.
+
+
+# test
+
+coverage run -m pytest
+coverage json -o reports/coverage.json
+coverage html -d reports/htmlcov
+python dash_test/coverage_dashboard_plotly.py
 
 
 pip install -r requirements.txt
 uvicorn app.main:app --reload
+
+
+# subir a docker
+docker build -t japipe05/androdri-backend--pub-whatsapp-messages:dev .
+docker push japipe05/androdri-backend--pub-whatsapp-messages:dev
+
+docker run -d `
+  --name androdri-whatsapp-backend `
+  --env-file .env `
+  -p 8000:8000 `
+  japipe05/androdri-backend--pub-whatsapp-messages:dev
