@@ -1,12 +1,24 @@
-# app/config/settings.py
+"""
+===============================================================================
+Archivo:        settings.py
+Ubicación:      app/config/settings.py
+Descripción:    Configuración central de la aplicación FastAPI. Define y carga
+                las variables de entorno utilizando Pydantic Settings para
+                asegurar validación y tipado estricto de configuración.
+Autor:          Andres Felipe Rodriguez Roa
+Fecha:          2025/06/11
+Radicado:       v0001af
+===============================================================================
+"""
 from typing import List
 from pydantic import AnyHttpUrl
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
-    APP_NAME: str = "FastAPI Androdri"
-    APP_VERSION: str = "1.0.0"
-    APP_DESCRIPTION: str = "Backend para la aplicación Androdri"
+    APP_NAME: str
+    APP_VERSION: str
+    APP_DESCRIPTION: str 
+    APP_FECHAMOD: str
 
     JWT_SECRET_WHATSAP: str
     JWT_ALGORITHM: str = "HS256"
@@ -19,11 +31,7 @@ class Settings(BaseSettings):
     RATE_LIMIT_MAX: int = 10
     RATE_LIMIT_WINDOW_SECONDS: int = 60
 
-    ALLOWED_ORIGINS: List[AnyHttpUrl] = [
-        "http://127.0.0.1:8000",
-        "http://localhost:3000",
-        "https://api.androdri.com",
-    ]
+    ALLOWED_ORIGINS: List[AnyHttpUrl] 
 
     # Indica dónde está tu .env
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")

@@ -69,7 +69,14 @@ RATE_LIMIT_WINDOW_SECONDS=60
 --------------------
 
 # test
-coverage run -m pytest; coverage json -o reports/coverage.json; python dash_test/coverage_dashboard.py; coverage report -m; coverage html
+python dash_test/run_coverage_dashboard.py
+
+# Todo:
+
+1. terminar documentacion token_router.py
+2. falta Docker
+
+2025/11/06 3 horas se realizaron test y un poco de documentacion
 
 # subir a docker
 docker build -t japipe05/androdri-backend-contactanos:dev .

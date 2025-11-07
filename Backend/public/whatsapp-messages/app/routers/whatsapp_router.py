@@ -22,7 +22,7 @@ async def jwt_bearer(credentials: HTTPAuthorizationCredentials = Security(bearer
     return verify_token(token)
 
 # Endpoint principal
-@router.post("/send")
+@router.post("/")
 async def send_whatsapp(payload: WhatsAppSendRequest, request: Request, _payload=Depends(jwt_bearer)):
     # Control de rate limit (máx. 10 solicitudes / 60 segundos por IP)
     check_rate_limit(request)

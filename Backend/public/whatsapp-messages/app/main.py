@@ -5,7 +5,7 @@
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from app.config.settings import settings
-from app.routers import token_router, whatsapp_router
+from app.routers import meta_router,token_router, whatsapp_router
 from fastapi.responses import JSONResponse
 from fastapi import status
 
@@ -21,13 +21,11 @@ app.add_middleware(
 )
 
 # include routers
+app.include_router(meta_router.router)
 app.include_router(token_router.router)
 app.include_router(whatsapp_router.router)
 
-# root
-@app.get("/", tags=["root"])
-async def root():
-    return {"app": settings.APP_NAME, "version": settings.APP_VERSION}
+
 
 # Global exception handler for validation and unexpected errors
 @app.exception_handler(Exception)
