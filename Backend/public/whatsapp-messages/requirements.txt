@@ -1,0 +1,12 @@
+# Python 3.13.9
+fastapi>=0.95.0
+uvicorn[standard]>=0.22.0
+pydantic-settings>=1.0.0
+pyjwt>=2.8.0
+python-dotenv>=1.0.0
+# Twilio is optional; only used if credentials configured
+twilio>=8.0.0
+pytest>=7.0.0
+dash>=2.15.0
+plotly>=5.16.0
+rich>=13.0.0

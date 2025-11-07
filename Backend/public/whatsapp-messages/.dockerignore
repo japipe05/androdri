@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment
+.env
+.venv/
+venv/
+
+# Coverage reports
+htmlcov/
+reports/
+.coverage
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Instance / secrets
+instance/

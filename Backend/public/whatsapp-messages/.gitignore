@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.log
+
+# Environments
+.env
+.venv/
+venv/
+
+# Coverage reports
+htmlcov/
+reports/
+.coverage
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Instance / secrets
+instance/

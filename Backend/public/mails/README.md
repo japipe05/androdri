@@ -20,10 +20,16 @@ androdri_api/
 │   │
 │   ├── main.py
 │
+├── dash_test/
+│   ├── coverage_dashboard.py
 ├── tests/
 │   ├── test_contact_api.py
 │
+├── .dockerignore
 ├── .env
+├── .gitignore
+├── Dockerfile
+├── README.md
 └── requirements.txt
 
 # Patrones
@@ -43,15 +49,18 @@ uvicorn app.main:app --reload
 coverage run -m pytest; coverage json -o reports/coverage.json; python dash_test/coverage_dashboard.py; coverage report -m; coverage html
 
 # subir a docker
-docker build -t japipe05/androdri-backend:dev .
-docker push japipe05/androdri-backend:dev
+docker build -t japipe05/androdri-backend-contactanos:dev .
+docker push japipe05/androdri-backend-contactanos:dev
 
 # probarlo en docker local
-docker run -d -p 8000:8000 --name androdri-backend `
-  -e SMTP_HOST=smtp.gmail.com `
-  -e SMTP_PORT=587 `
-  -e SMTP_USER=felipehuchija@gmail.com `
-  -e SMTP_PASSWORD=yhjmdvmcvqidtxep `
-  -e JWT_SECRET_KEY=mi_clave_secreta_jwt_androdri1236546 `
-  japipe05/androdri-backend:dev
+
+docker run -d `
+  --name androdri-backend-contactanos `
+  -p 8000:8000 `
+  -e SMTP_HOST="smtp.gmail.com" `
+  -e SMTP_PORT="587" `
+  -e SMTP_USER="felipehuchija@gmail.com" `
+  -e SMTP_PASSWORD="yhjmdvmcvqidtxep" `
+  -e JWT_SECRET_KEY="mi_clave_secreta_jwt_androdri1236546" `
+  japipe05/androdri-backend-contactanos:dev
 
