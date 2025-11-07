@@ -15,4 +15,4 @@ from pydantic import BaseModel, Field
 
 class WhatsAppSendRequest(BaseModel):
     phone_number: str = Field(..., example="+573224612382")
-    message: str = Field(..., example="Hola desde Androdri API")
+    message: str = Field(..., example="🧩*Desarrollo Androdri API – Notificación automática* \n\n🧪Se ha realizado una prueba exitosa de conexión con WhatsApp Business.\n🟢_Fecha:_ 2025-11-06\n✅ Estado: Envío confirmado")

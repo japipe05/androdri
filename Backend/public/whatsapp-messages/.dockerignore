@@ -1,26 +1,66 @@
-# Python cache
+# ================================================
+# .dockerignore - Proyecto FastAPI WhatsApp API
+# Autor: Andres Felipe Rodriguez Roa
+# Fecha: 2025/11/07
+# Descripción: Archivos y directorios excluidos del contexto de build de Docker
+# ================================================
+
+# Archivos del sistema
 __pycache__/
 *.pyc
 *.pyo
-*.pyd
-
-# Environment
-.env
-.venv/
-venv/
-
-# Coverage reports
-htmlcov/
-reports/
-.coverage
-
-# IDEs
-.vscode/
-.idea/
-
-# OS
+*.pdb
+*.so
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
 .DS_Store
 Thumbs.db
 
-# Instance / secrets
-instance/
+# Configuración local
+.env
+*.env.local
+app/config/settings_local.py
+app/config/settings_dev.py
+
+# Entornos virtuales
+.venv/
+env/
+venv/
+ENV/
+Pipfile
+Pipfile.lock
+poetry.lock
+
+# Pruebas y cache
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+__pypackages__/
+
+# Documentación y builds
+docs/
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Editor y sistema operativo
+.vscode/
+.idea/
+*.iml
+*.code-workspace
+
+# Otros
+.git/
+.gitignore
+docker-compose.yml
+docker-compose.override.yml
+Dockerfile
+README.md
+*.tar
+*.zip

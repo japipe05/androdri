@@ -79,20 +79,21 @@ python dash_test/run_coverage_dashboard.py
 2025/11/06 3 horas se realizaron test y un poco de documentacion
 
 # subir a docker
-docker build -t japipe05/androdri-backend-contactanos:dev .
-docker push japipe05/androdri-backend-contactanos:dev
+androdri-api:prod-v1.3.0-20251107
+androdri-api:staging-v1.0.0-20251107
+androdri-api:dev-v1.0.0-20251107
+
+docker build -t japipe05/androdri-backend-pub001-whatsapp-messages:dev-v1.0.0-20251107 .
+docker push japipe05/androdri-backend-pub001-whatsapp-messages:dev-v1.0.0-20251107
 
 # probarlo en docker local
 
 docker run -d `
-  --name androdri-backend-contactanos `
+  --name androdri-backend-pub001-whatsapp-messages `
+  --env-file .env `
   -p 8000:8000 `
-  -e SMTP_HOST="smtp.gmail.com" `
-  -e SMTP_PORT="587" `
-  -e SMTP_USER="felipehuchija@gmail.com" `
-  -e SMTP_PASSWORD="yhjmdvmcvqidtxep" `
-  -e JWT_SECRET_KEY="mi_clave_secreta_jwt_androdri1236546" `
-  japipe05/androdri-backend-contactanos:dev
+  japipe05/androdri-backend-pub001-whatsapp-messages:dev-v1.0.0-20251107
+
 
 Estructura de carpetas (lo que implementé y qué hace cada carpeta)
 
