@@ -143,7 +143,7 @@ pip install -r requirements.txt
 pip install -r requirements.txt --upgrade
 ```
 
-## Ejecutar aplicacion
+## Ejecutar aplicacion.
 
 Ejecutar la aplicacion 
 
