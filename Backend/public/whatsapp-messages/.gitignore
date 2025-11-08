@@ -1,31 +1,145 @@
-# Python
+# ================================================
+# .gitignore - Proyecto FastAPI WhatsApp API
+# Autor: Andres Felipe Rodriguez Roa
+# Fecha: 2025/11/07
+# Descripción: Ignora archivos sensibles y temporales
+# ================================================
+
+# --- Archivos y directorios de Python ---
 __pycache__/
-*.pyc
+*.py[cod]
 *.pyo
 *.pyd
-*.egg
-*.egg-info/
-dist/
-build/
-*.log
+*.pkl
+*.pdb
+*.so
 
-# Environments
+# --- Entornos virtuales ---
 .env
 .venv/
 venv/
+env/
+ENV/
+Pipfile.lock
+poetry.lock
 
-# Coverage reports
-htmlcov/
-reports/
-.coverage
-
-# IDEs
-.vscode/
-.idea/
-
-# OS
+# --- Archivos de configuración local ---
+*.env.local
+*.ini
+*.cfg
+*.toml
+*.yaml
+*.yml
+*.sqlite3
 .DS_Store
-Thumbs.db
+.settings/
+.idea/
+.vscode/
+*.code-workspace
 
-# Instance / secrets
-instance/
+# --- Cache y compilación ---
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+*.~lock*
+*.db
+.cache/
+__pypackages__/
+.pytest_cache/
+.coverage
+htmlcov/
+coverage.xml
+.mypy_cache/
+.dmypy.json
+.pyre/
+.pytype/
+celerybeat-schedule
+celerybeat.pid
+
+# --- Archivos generados por FastAPI / Uvicorn ---
+*.pid
+*.sock
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# --- Reportes y resultados de pruebas ---
+*.out
+*.err
+*.spec
+reports/
+test_results/
+junit.xml
+
+# --- Archivos del sistema operativo ---
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# --- Archivos de contenedores / Docker ---
+*.tar
+*.img
+*.bak
+docker-compose.override.yml
+.dockerignore
+logs/
+*.log
+
+# --- Archivos de CI/CD ---
+.tox/
+.nox/
+*.lock.json
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# --- Claves y credenciales ---
+secrets.json
+*.pem
+*.key
+*.crt
+*.csr
+*.der
+*.pub
+*.p12
+*.pfx
+*.jks
+
+# --- Archivos específicos del proyecto ---
+app/config/local_settings.py
+app/config/settings_local.py
+app/config/settings_dev.py
+twilio_test_data.json
+test_results.json
+temp/
+tmp/
+
+# --- Dependencias descargadas ---
+site/
+node_modules/
+bower_components/
+package-lock.json
+
+# --- Documentación generada ---
+docs/_build/
+docs/build/
+*.pdf
+*.docx
+
+# --- Archivos de ejecución / Deployment ---
+nohup.out
+*.pid
+*.log
+*.bak
+*.tar.gz
+*.zip
+
+# --- Otros ---
+.idea/
+.vscode/
