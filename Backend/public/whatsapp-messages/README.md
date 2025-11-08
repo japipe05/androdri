@@ -3,6 +3,8 @@
 **Androdri API** es un backend modular y escalable desarrollado con **FastAPI**, diseñado para enviar mensajes de **WhatsApp** mediante **Twilio** (o un simulador local).  
 Incluye autenticación mediante **JWT**, limitador de peticiones por IP y una arquitectura limpia y desacoplada basada en buenas prácticas de ingeniería de software.
 
+**Autor:**  Andres Felipe Rodriugez Roa 
+**Fecha:**  2025/11/07
 ---
 
 ## 🚀 Características principales
