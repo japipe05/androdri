@@ -148,11 +148,11 @@ pip install -r requirements.txt --upgrade
 Ejecutar la aplicacion 
 
 ```bash
-uvicorn app.main:app --reload
+uvicorn app.main:app --reload 
 ```
 
 
-## 🧪 Pruebas
+## 🧪 Pruebas.
 
 Ejecuta las pruebas unitarias y el dashboard de cobertura:
 
