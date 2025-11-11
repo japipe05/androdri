@@ -1,30 +1,47 @@
-version: '3.8'
+version: "3.9"
 
 services:
-  frontend:
-    image: japipe05/androdri-frontend:v1.0.0
-    container_name: androdri-frontend
-    restart: always
+  whatsapp-messages:
+    build:
+      context: ./Backend/public/whatsapp-messages
+      dockerfile: Dockerfile
+    container_name: androdri-backend-pub001-whatsapp-messages
+    image: japipe05/androdri-backend-pub001-whatsapp-messages:dev-v1.0.0-20251107
+    env_file: ./Backend/public/whatsapp-messages/.env
     ports:
-      - "3000:3000" # puerto público:puerto contenedor
-    depends_on:
-      - backend
+      - "8000:8000"
     networks:
-      - app-network
-    env_file:
-      - .env
+      - androdri-net
 
-  backend:
-    image: japipe05/androdri-backend:v1.0.0
-    container_name: androdri-backend
-    restart: always
+  mails:
+    build:
+      context: ./Backend/public/mails
+      dockerfile: Dockerfile
+    container_name: androdri-backend-pub002-mails
+    image: japipe05/androdri-backend-pub002-mails:dev-v1.0.0-20251107
+    env_file: ./Backend/public/mails/.env
     ports:
-      - "8000:8000" # puerto público:puerto contenedor (ajusta si usas otro)
+      - "8001:8000"
     networks:
-      - app-network
-    env_file:
-      - .env
+      - androdri-net
+    depends_on:
+      - whatsapp-messages
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: androdri-frontend
+    image: japipe05/androdri-frontend:dev-v1.0.0-20251107
+    env_file: ./frontend/.env
+    ports:
+      - "3000:3000"
+    networks:
+      - androdri-net
+    depends_on:
+      - mails
+      - whatsapp-messages
 
 networks:
-  app-network:
+  androdri-net:
     driver: bridge
