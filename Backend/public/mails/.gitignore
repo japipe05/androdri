@@ -1,96 +1,43 @@
-# ========================
-# 🐍 Python general
-# ========================
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
-*.pkl
-*.log
-*.sqlite3
 *.db
-*.pyc
 
-# ========================
-# 🧪 Testing y Coverage
-# ========================
-htmlcov/
-.coverage
-.coverage.*
-.cache/
-.pytest_cache/
-reports/
-coverage.xml
-coverage.json
-
-# ========================
-# 📦 Dependencias
-# ========================
+# Entornos virtuales
 env/
 venv/
-ENV/
-env.bak/
 .venv/
-pip-wheel-metadata/
-*.egg-info/
-.eggs/
-dist/
-build/
-wheels/
 
-# ========================
-# ⚙️ IDEs y Editores
-# ========================
+# IDEs
 .vscode/
 .idea/
-*.swp
-*.swo
-
-# ========================
-# 🧰 Sistema operativo
-# ========================
 .DS_Store
-Thumbs.db
-desktop.ini
 
-# ========================
-# 🪶 FastAPI y Uvicorn
-# ========================
+# Tests y cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+reports/
+dash_test/
+*.xml
+
+# Logs y runtime
+*.log
 *.pid
-*.sock
 
-# ========================
-# 🔐 Configuración sensible
-# ========================
+# Configuración
 .env
-*.env.local
 .env.*
 
-# ========================
-# 📊 Temporal / Cache
-# ========================
-tmp/
-temp/
+# Archivos temporales
+*.bak
 *.tmp
+*.swp
+*.swo
+*.sqlite3
 
-# ========================
-# 🗜️ Archivos generados (ZIP / 7z)
-# ========================
-*.zip
-*.7z
-
-# ========================
-# 🧠 Modelos / datos sensibles
-# ========================
-*.key
-*.pem
-*.crt
-*.csr
-*.pfx
-*.cer
-*.json.secret
-
-# ========================
-# 🧪 Notebooks temporales
-# ========================
-*.ipynb_checkpoints
+# Docker
+docker-compose.override.yml
+.dockerignore

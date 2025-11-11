@@ -35,3 +35,4 @@ async def root(request: Request):
             "OpenAPI JSON": f"{base_url}/openapi.json"
         },
     }
+   

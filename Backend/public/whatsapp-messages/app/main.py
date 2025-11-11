@@ -26,6 +26,15 @@ app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
     description=settings.APP_DESCRIPTION,
+    contact={
+        "name": "Andres Felipe Rodriguez Roa",
+        "url": "https://github.com/japipe05",
+        "email": "felipehuchija@gmail.com"
+    },
+    license_info={
+        "name": "MIT License",
+        "url": "https://opensource.org/licenses/MIT"
+    },
 )
 
 
