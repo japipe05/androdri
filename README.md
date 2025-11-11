@@ -1,41 +1,17 @@
-# Ejecutar la aplicacion de python
-python -m uvicorn app.main:app --reload
-# Ejecutar aplicacion en nextjs
-npm run dev
 
+## 🐳 Despliegue con Docker Desarrollo masivo
 
-> docker builder prune --all
-docker login
+```bash
+# Construye todas las imágenes
+docker compose build
 
-# Desarrollo
-docker build -t japipe05/androdri-backend:dev ./backend
-docker build -t japipe05/androdri-frontend:dev ./frontend
+# (Opcional) Etiqueta y sube las imágenes
+docker compose push
 
-# Test
-docker build -t japipe05/androdri-backend:test ./backend
-docker build -t japipe05/androdri-frontend:test ./frontend
+# Levanta todos los contenedores
+docker compose up -d
 
-# Producción (usa versión semántica)
-docker build -t japipe05/androdri-backend:v1.0.0 ./backend
+# detener todo
+docker compose down
 
-docker build `
---build-arg NEXT_PUBLIC_CONTACT_API_URL="https://api.androdri.com" `
--t japipe05/androdri-frontend:v1.0.0 `
-./frontend
-
-
-# Desarrollo
-docker push japipe05/androdri-backend:dev
-docker push japipe05/androdri-frontend:dev
-
-# Test
-docker push japipe05/androdri-backend:test
-docker push japipe05/androdri-frontend:test
-
-# Producción
-docker push japipe05/androdri-backend:v1.0.0
-docker push japipe05/androdri-frontend:v1.0.0
-
-
-# androdri
-> docker-compose up --build -d
+```
