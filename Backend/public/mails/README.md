@@ -203,11 +203,13 @@ docker push japipe05/androdri-backend-pub002-mails:dev-v1.0.0-20251107
 ### ▶️ Ejecutar en contenedor local
 
 ```bash
-docker run -d \
-  --name androdri-backend-pub002-mails \
-  --env-file .env \
-  -p 8001:8000 \
+docker run -d `
+  --name androdri-backend-pub002-mails `
+  --env-file .env `
+  --network androdri-net `
+  -p 8001:8000 `
   japipe05/androdri-backend-pub002-mails:dev-v1.0.0-20251107
+
 ```
 
 Documentación interactiva:  

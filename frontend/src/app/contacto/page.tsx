@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 
 export const dynamic = "force-dynamic";
@@ -12,9 +12,13 @@ export default function Contacto() {
     message: "",
   });
 
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -29,14 +33,21 @@ export default function Contacto() {
     }
 
     try {
-      // Ahora el cliente solo llama al proxy local
-      await axios.post("/api/contact", form);
+      const { data } = await axios.post("/api/contact", form, {
+        headers: { "Content-Type": "application/json" },
+      });
 
-      setStatus("success");
-      setForm({ name: "", email: "", message: "" });
+      if (data.success) {
+        setStatus("success");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        setStatus("error");
+      }
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
       setStatus("error");
+    } finally {
+      setTimeout(() => setStatus("idle"), 4000);
     }
   };
 
@@ -53,7 +64,8 @@ export default function Contacto() {
         </h1>
 
         <p className="text-center text-base sm:text-lg text-[var(--color-foreground)]/90">
-          ¿Tienes un proyecto o deseas más información? Escríbenos y te responderemos lo antes posible.
+          ¿Tienes un proyecto o deseas más información? Escríbenos y te
+          responderemos lo antes posible.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
@@ -98,18 +110,69 @@ export default function Contacto() {
           <button
             type="submit"
             disabled={status === "loading"}
-            className="bg-[#2874A6] text-white px-6 py-3 rounded-lg hover:bg-[#1f5e87] transition-colors font-semibold"
+            className={`${
+              status === "loading"
+                ? "bg-[#1f5e87] cursor-not-allowed"
+                : "bg-[#2874A6] hover:bg-[#1f5e87]"
+            } text-white px-6 py-3 rounded-lg transition-colors font-semibold flex items-center justify-center gap-2`}
           >
-            {status === "loading" ? "Enviando..." : "Enviar mensaje"}
+            {status === "loading" ? (
+              <>
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                  ></path>
+                </svg>
+                Enviando...
+              </>
+            ) : (
+              "Enviar mensaje"
+            )}
           </button>
         </form>
 
-        {status === "success" && (
-          <p className="text-green-600 text-center font-medium">✅ ¡Mensaje enviado correctamente!</p>
-        )}
-        {status === "error" && (
-          <p className="text-red-600 text-center font-medium">❌ Hubo un error al enviar el mensaje.</p>
-        )}
+        {/* Mensajes dinámicos con animación */}
+        <AnimatePresence>
+          {status === "success" && (
+            <motion.p
+              key="success"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="text-green-600 text-center font-medium"
+            >
+              ✅ ¡Mensaje enviado correctamente!
+            </motion.p>
+          )}
+          {status === "error" && (
+            <motion.p
+              key="error"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
+              className="text-red-600 text-center font-medium"
+            >
+              ❌ Hubo un error al enviar el mensaje.
+            </motion.p>
+          )}
+        </AnimatePresence>
       </motion.div>
     </main>
   );
