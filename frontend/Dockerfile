@@ -39,7 +39,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.js ./next.config.js
 
 # Expone el puerto usado por la app
-EXPOSE 3002
+EXPOSE 3000
 
 # Comando para iniciar la app en modo producción
 CMD ["npm", "start"]
