@@ -1,24 +1,30 @@
+# Archivos y carpetas innecesarias
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
 *.db
-*.sqlite3
 *.log
-*.tmp
-*.zip
-*.7z
+
+# Carpetas locales
 .env
-.env.*
-htmlcov/
-coverage/
-reports/
+.git
+.gitignore
 .pytest_cache/
-.git/
-.vscode/
-.idea/
+htmlcov/
+reports/
+dash_test/
 tests/
-venv/
+.coverage
+coverage.*
+*.egg-info
 dist/
 build/
-dash_test/
+mails/tmp/
+*.sqlite3
+
+# Configuración del entorno local
+.vscode/
+.idea/
+.DS_Store
+*.bak

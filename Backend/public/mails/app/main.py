@@ -1,15 +1,49 @@
-from fastapi import FastAPI
+"""
+===============================================================================
+Archivo:        main.py
+Ubicación:      app/main.py
+Descripción:    Punto de entrada principal de la aplicación FastAPI. Configura
+                el objeto principal `app`, inicializa los middlewares globales
+                (como CORS), define el esquema de seguridad y registra los
+                routers correspondientes a los distintos módulos del sistema.
+Autor:          Andres Felipe Rodriguez Roa
+Fecha:          2025/11/10
+Radicado:       v0011af
+===============================================================================
+"""
+
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
 from app.config.settings import settings
-from app.routers import contact_router, auth_router  # 👈 Importa el nuevo router
+from app.routers import meta_router, token_router, email_router
+
+
+# ------------------------------------------------------------------------------
+# Inicialización de seguridad y aplicación
+# ------------------------------------------------------------------------------
+security = HTTPBearer()
 
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
-    description=settings.APP_DESCRIPTION
+    description=settings.APP_DESCRIPTION,
+    contact={
+        "name": "Andres Felipe Rodriguez Roa",
+        "url": "https://github.com/japipe05",
+        "email": "felipehuchija@gmail.com"
+    },
+    license_info={
+        "name": "MIT License",
+        "url": "https://opensource.org/licenses/MIT"
+    },
 )
 
-# Middleware CORS
+
+# ------------------------------------------------------------------------------
+# Configuración de CORS
+# ------------------------------------------------------------------------------
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
@@ -18,16 +52,24 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Routers
-app.include_router(auth_router.router)      # 👈 Añádelo primero
-app.include_router(contact_router.router)
 
-@app.get("/")
-def root():
-    return {
-        "message": f"{settings.APP_NAME} está en ejecución 🚀",
-        "app_name": settings.APP_NAME,
-        "app_version": settings.APP_VERSION,
-        "app_description": settings.APP_DESCRIPTION,
-        "fecha_modificacion": settings.APP_FECHAMOD,
-    }
+# ------------------------------------------------------------------------------
+# Inclusión de Routers
+# ------------------------------------------------------------------------------
+app.include_router(meta_router.router)
+app.include_router(token_router.router)
+app.include_router(email_router.router)
+
+
+# ------------------------------------------------------------------------------
+# Evento de arranque opcional
+# ------------------------------------------------------------------------------
+@app.on_event("startup")
+async def startup_event():
+    """
+    Evento que se ejecuta al iniciar la aplicación.
+    Puede usarse para inicializar conexiones, cachés o tareas de monitoreo.
+    """
+    print(f"🚀 {settings.APP_NAME} v{settings.APP_VERSION} iniciado correctamente.")
+
+
