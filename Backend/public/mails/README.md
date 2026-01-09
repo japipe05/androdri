@@ -91,10 +91,6 @@ MAIL_PORT=587
 MAIL_SERVER=smtp.gmail.com
 ```
 
-> 💡 Compatible con Gmail, Outlook, SendGrid, Amazon SES, etc.
-
----
-
 ## 💻 Instalación local
 
 ```bash
@@ -113,60 +109,6 @@ Modo servidor (para Docker u orquestadores):
 ```bash
 uvicorn app.main:app --host 0.0.0.0 --port 8001
 ```
-
----
-
-## 🔐 Endpoints principales
-
-### 🔸 Generar token JWT
-
-**Ruta:**  
-`POST /api/token-email/v1/`
-
-**Request**
-```json
-{
-  "api_key": "tu_clave_jwt"
-}
-```
-
-**Response**
-```json
-{
-  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
-  "token_type": "bearer"
-}
-```
-
----
-
-### 🔸 Enviar correo
-
-**Ruta:**  
-`POST /api/email/v1/`
-
-**Headers**
-```
-Authorization: Bearer <JWT>
-```
-
-**Body (multipart/form-data)**  
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| `asunto` | string | Asunto del correo |
-| `mensaje` | string | Cuerpo del mensaje |
-| `comprimir` | bool | Si se debe comprimir los adjuntos |
-| `password` | string | Contraseña del ZIP (opcional) |
-| `archivos` | file[] | Archivos adjuntos |
-
-**Response**
-```json
-{
-  "message": "Correo enviado correctamente 🚀"
-}
-```
-
----
 
 ## 🧪 Pruebas
 
@@ -189,26 +131,26 @@ python dash_test/run_coverage_dashboard.py
 ### 📦 Construcción de la imagen
 
 ```bash
-docker build -t japipe05/androdri-backend-pub002-mails:dev-v1.0.0-20251107 .
+docker build -t japipe05/androdri-backend-pub:1.0.0-prod .
 ```
 
 ### ☁️ Subir imagen a Docker Hub
 
 ```bash
-docker push japipe05/androdri-backend-pub002-mails:dev-v1.0.0-20251107
-```
+docker push japipe05/androdri-backend-pub:1.0.0-prod
 
+```
 ---
 
 ### ▶️ Ejecutar en contenedor local
 
 ```bash
 docker run -d `
-  --name androdri-backend-pub002-mails `
+  --name androdri-backend-pub `
   --env-file .env `
   --network androdri-net `
-  -p 8001:8000 `
-  japipe05/androdri-backend-pub002-mails:dev-v1.0.0-20251107
+  -p 8000:8000 `
+  japipe05/androdri-backend-pub:1.0.0-prod
 
 ```
 

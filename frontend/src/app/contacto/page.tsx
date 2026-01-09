@@ -1,9 +1,12 @@
 "use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 
 export const dynamic = "force-dynamic";
+
+type Status = "idle" | "loading" | "success" | "error";
 
 export default function Contacto() {
   const [form, setForm] = useState({
@@ -12,19 +15,24 @@ export default function Contacto() {
     message: "",
   });
 
-  const [status, setStatus] = useState<
-    "idle" | "loading" | "success" | "error"
-  >("idle");
+  const [status, setStatus] = useState<Status>("idle");
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    setForm((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMessage(null);
+    setSuccessMessage(null);
 
     if (form.name.trim().length < 2 || form.message.trim().length < 10) {
       alert("El nombre debe tener al menos 2 letras y el mensaje mínimo 10.");
@@ -33,21 +41,34 @@ export default function Contacto() {
     }
 
     try {
-      const { data } = await axios.post("/api/contact", form, {
-        headers: { "Content-Type": "application/json" },
-      });
+      const { data } = await axios.post("/api/email/v1", form);
 
-      if (data.success) {
-        setStatus("success");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        setStatus("error");
+      // ✅ ÉXITO SI NO HUBO ERROR
+      setStatus("success");
+      setSuccessMessage(
+        data?.message || " enviado correctamente."
+      );
+      setForm({ name: "", email: "", message: "" });
+
+    } catch (error: unknown) {
+      let message = "Error al enviar el mensaje.";
+
+      if (axios.isAxiosError(error)) {
+        message =
+          error.response?.data?.message ||
+          error.message ||
+          "No se pudo enviar el mensaje.";
       }
-    } catch (error) {
-      console.error("Error al enviar el mensaje:", error);
+
+      console.error("Error al enviar el mensaje:", message);
+      setErrorMessage(message);
       setStatus("error");
     } finally {
-      setTimeout(() => setStatus("idle"), 4000);
+      setTimeout(() => {
+        setStatus("idle");
+        setErrorMessage(null);
+        setSuccessMessage(null);
+      }, 4000);
     }
   };
 
@@ -76,9 +97,8 @@ export default function Contacto() {
               name="name"
               value={form.name}
               onChange={handleChange}
-              placeholder="Tu nombre"
               required
-              className="border border-gray-300 rounded-lg px-4 py-2 text-[var(--color-foreground)] bg-white focus:outline-none focus:ring-2 focus:ring-[#2874A6]"
+              className="border border-gray-300 rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-[#2874A6]"
             />
           </div>
 
@@ -89,9 +109,8 @@ export default function Contacto() {
               name="email"
               value={form.email}
               onChange={handleChange}
-              placeholder="correo@ejemplo.com"
               required
-              className="border border-gray-300 rounded-lg px-4 py-2 text-[var(--color-foreground)] bg-white focus:outline-none focus:ring-2 focus:ring-[#2874A6]"
+              className="border border-gray-300 rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-[#2874A6]"
             />
           </div>
 
@@ -101,10 +120,9 @@ export default function Contacto() {
               name="message"
               value={form.message}
               onChange={handleChange}
-              placeholder="¿Cómo podemos ayudarte?"
               required
-              className="border border-gray-300 rounded-lg px-4 py-2 h-32 text-[var(--color-foreground)] bg-white resize-none focus:outline-none focus:ring-2 focus:ring-[#2874A6]"
-            ></textarea>
+              className="border border-gray-300 rounded-lg px-4 py-2 h-32 bg-white resize-none focus:ring-2 focus:ring-[#2874A6]"
+            />
           </div>
 
           <button
@@ -114,62 +132,32 @@ export default function Contacto() {
               status === "loading"
                 ? "bg-[#1f5e87] cursor-not-allowed"
                 : "bg-[#2874A6] hover:bg-[#1f5e87]"
-            } text-white px-6 py-3 rounded-lg transition-colors font-semibold flex items-center justify-center gap-2`}
+            } text-white px-6 py-3 rounded-lg transition-colors font-semibold flex justify-center`}
           >
-            {status === "loading" ? (
-              <>
-                <svg
-                  className="animate-spin h-5 w-5 text-white"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  ></circle>
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                  ></path>
-                </svg>
-                Enviando...
-              </>
-            ) : (
-              "Enviar mensaje"
-            )}
+            {status === "loading" ? "Enviando..." : "Enviar mensaje"}
           </button>
         </form>
 
-        {/* Mensajes dinámicos con animación */}
         <AnimatePresence>
-          {status === "success" && (
+          {status === "success" && successMessage && (
             <motion.p
-              key="success"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
               className="text-green-600 text-center font-medium"
             >
-              ✅ ¡Mensaje enviado correctamente!
+              ✅ {successMessage}
             </motion.p>
           )}
-          {status === "error" && (
+
+          {status === "error" && errorMessage && (
             <motion.p
-              key="error"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
               className="text-red-600 text-center font-medium"
             >
-              ❌ Hubo un error al enviar el mensaje.
+              ❌ {errorMessage}
             </motion.p>
           )}
         </AnimatePresence>

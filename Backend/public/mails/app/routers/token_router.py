@@ -76,7 +76,7 @@ def generate_token(req: TokenRequest):
     # Validación de API Key
     # ---------------------------------------------------------------------------
     if req.api_key != settings.JWT_SECRET_KEY:
-        raise HTTPException(status_code=401, detail="API Key inválida")
+        raise HTTPException(status_code=401, detail=f"API Key inválida")
 
     # ---------------------------------------------------------------------------
     # Generación del token de acceso

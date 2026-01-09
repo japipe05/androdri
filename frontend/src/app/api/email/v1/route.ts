@@ -1,58 +1,116 @@
-// app/api/contact/route.ts
 import { NextRequest, NextResponse } from "next/server";
+import axios, { AxiosError } from "axios";
+import FormData from "form-data";
 
-const TOKEN_URL = process.env.TOKEN_URL || ""; // ⚠️ Se guarda en .env.local
-const EMAIL_URL = process.env.EMAIL_URL || ""; // ⚠️ Se guarda en .env.local
-const API_KEY = process.env.EMAIL_API_KEY || ""; // ⚠️ Se guarda en .env.local
+const TOKEN_URL = process.env.TOKEN_URL!;
+const EMAIL_URL = process.env.EMAIL_URL!;
+const API_KEY = process.env.EMAIL_API_KEY!;
+
+interface TokenResponse {
+  access_token: string;
+}
 
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, message } = await req.json();
+    const body = await req.json();
+    const { name, email, message } = body as {
+      name?: string;
+      email?: string;
+      message?: string;
+    };
 
-    // Validaciones mínimas
-    if (!name || !email || !message)
-      return NextResponse.json({ error: "Campos incompletos" }, { status: 400 });
-
-    // 1️⃣ Obtener token seguro desde backend
-    const tokenRes = await fetch(TOKEN_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", accept: "application/json" },
-      body: JSON.stringify({ api_key: API_KEY }),
-    });
-
-    if (!tokenRes.ok) {
-      console.error("Error al obtener el token:", await tokenRes.text());
-      return NextResponse.json({ error: "Error al autenticar con API externa" }, { status: 500 });
+    if (!name || !email || !message) {
+      return NextResponse.json(
+        { error: "Campos incompletos" },
+        { status: 400 }
+      );
     }
 
-    const tokenData = await tokenRes.json();
-    const token = tokenData.access_token;
+    /* ======================
+       1️⃣ OBTENER TOKEN
+    ====================== */
+    let access_token: string;
 
-    // 2️⃣ Enviar correo a la API protegida
-    const formData = new FormData();
-    formData.append("asunto", `Contactanos ${name}`);
-    formData.append("mensaje", `De: <${email}>\n\n${message}`);
-    formData.append("comprimir", "false");
-    formData.append("password", "");
+    try {
+      const tokenRes = await axios.post<TokenResponse>(
+        TOKEN_URL,
+        { api_key: API_KEY },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
 
-    const emailRes = await fetch(EMAIL_URL, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        accept: "application/json",
-      },
-      body: formData,
-    });
+      access_token = tokenRes.data.access_token;
+    } catch (err: unknown) {
+      const error = err as AxiosError;
 
-    if (!emailRes.ok) {
-      console.error("Error al enviar correo:", await emailRes.text());
-      return NextResponse.json({ error: "Error al enviar correo" }, { status: 500 });
+      console.error("===== TOKEN AXIOS ERROR =====");
+      console.error("message:", error.message);
+      console.error("code:", error.code);
+      console.error("status:", error.response?.status);
+      console.error("statusText:", error.response?.statusText);
+      console.error("response.data:", error.response?.data);
+      console.error("response.headers:", error.response?.headers);
+      console.error("request.url:", error.config?.url);
+      console.error("request.method:", error.config?.method);
+      console.error("=============================");
+
+      return NextResponse.json(
+        { error: "Error autenticando" },
+        { status: 500 }
+      );
     }
 
-    const result = await emailRes.json();
-    return NextResponse.json({ success: true, message: result.message });
-  } catch (error) {
-    console.error("Error en /api/contact:", error);
-    return NextResponse.json({ error: "Error interno del servidor" }, { status: 500 });
+    /* ======================
+       2️⃣ ENVIAR EMAIL
+    ====================== */
+const formData = new FormData();
+formData.append("asunto", `Contacto: ${name}`);
+formData.append("mensaje", `De: ${email}\n\n${message}`);
+
+let emailRes;
+
+try {
+  emailRes = await axios.post(EMAIL_URL, formData, {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+      Accept: "application/json",
+      ...formData.getHeaders(),
+    },
+  });
+} catch (err: unknown) {
+  const error = err as AxiosError;
+
+  console.error(
+    "EMAIL ERROR:",
+    error.response?.data ?? error.message
+  );
+
+  return NextResponse.json(
+    { success: false, message: "Error enviando correo" },
+    { status: 500 }
+  );
+}
+
+/* ======================
+   3️⃣ RESPUESTA FINAL
+====================== */
+return NextResponse.json({
+  success: true,
+  message: emailRes?.data?.message ?? "Correo enviado correctamente",
+});
+
+
+  } catch (err: unknown) {
+    const error = err as Error;
+    console.error("API EMAIL ERROR:", error.message);
+
+    return NextResponse.json(
+      { error: "Error interno" },
+      { status: 500 }
+    );
   }
 }
