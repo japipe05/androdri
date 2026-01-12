@@ -40,14 +40,6 @@ class Settings(BaseSettings):
     ALLOWED_ORIGINS : List[str]
         Lista de dominios permitidos para solicitudes CORS.
 
-    SMTP_HOST : str
-        Servidor de correo saliente (SMTP).
-    SMTP_PORT : int
-        Puerto asociado al servidor SMTP.
-    SMTP_USER : str
-        Usuario autenticado para el servicio de correo.
-    SMTP_PASSWORD : str
-        Contraseña del usuario SMTP (se recomienda mantenerla en secreto en el .env).
 
     JWT_SECRET_KEY : str
         Clave secreta utilizada para la generación y validación de tokens JWT.
@@ -62,10 +54,9 @@ class Settings(BaseSettings):
 
     ALLOWED_ORIGINS: List[str]
 
-    SMTP_HOST: str
-    SMTP_PORT: int
-    SMTP_USER: str
-    SMTP_PASSWORD: str
+    SENDGRID_API_KEY: str
+    SENDGRID_FROM_EMAIL: str
+    SENDGRID_FROM_NAME: str
 
     JWT_SECRET_KEY: str
     PORT: int

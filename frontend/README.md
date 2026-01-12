@@ -37,7 +37,6 @@ NEXT_PUBLIC_HELLO_MESSAGE=Hola desde el frontend local
 docker run -d `
   --name androdri-frontend `
   --env-file .env `
-  --network androdri-net `
   -p 3000:3000  `
   japipe05/androdri-frontend:1.0.0-prod
 

@@ -107,7 +107,7 @@ uvicorn app.main:app --reload
 Modo servidor (para Docker u orquestadores):
 
 ```bash
-uvicorn app.main:app --host 0.0.0.0 --port 8001
+uvicorn app.main:app --host 0.0.0.0 --port 8000
 ```
 
 ## 🧪 Pruebas
@@ -148,9 +148,8 @@ docker push japipe05/androdri-backend-pub:1.0.0-prod
 docker run -d `
   --name androdri-backend-pub `
   --env-file .env `
-  --network androdri-net `
   -p 8000:8000 `
-  japipe05/androdri-backend-pub:1.0.0-prod
+  japipe05/androdri-backend:1.0.0-prod
 
 ```
 

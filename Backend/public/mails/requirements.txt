@@ -5,3 +5,5 @@ pydantic-settings
 pyjwt
 pyzipper
 jinja2
+email-validator
+sendgrid
