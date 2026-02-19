@@ -2,6 +2,8 @@
 import { TypeAnimation } from "react-type-animation";
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
+import { PricingSection } from "@/components/PricingSection";
+
 
 const ModelViewer = dynamic(() => import("@/components/ModelViewer"), { ssr: false });
 
@@ -42,6 +44,9 @@ export default function Home() {
           <ModelViewer />
         </div>
       </motion.div>
+
+      <PricingSection />
+
     </main>
   );
 }

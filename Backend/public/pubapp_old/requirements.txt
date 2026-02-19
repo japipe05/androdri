@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+pydantic-settings
+sendgrid
+jinja2
+email-validator

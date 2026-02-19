@@ -1,45 +1,27 @@
-# Etapa 1: Build
 FROM node:20-alpine AS builder
 
 WORKDIR /app
+RUN apk add --no-cache libc6-compat
 
-# Recibe argumentos desde Railway
-ARG NEXT_PUBLIC_CONTACT_API_URL
+COPY package.json package-lock.json* ./
+RUN npm ci
 
-# Expone variables para que estén disponibles en el build
-ENV NEXT_PUBLIC_CONTACT_API_URL=$NEXT_PUBLIC_CONTACT_API_URL
-
-# Copia los archivos necesarios para instalar dependencias
-COPY package.json package-lock.json* ./ 
-COPY tsconfig.json ./ 
-COPY tailwind.config.* postcss.config.* ./
-
-# Instala dependencias (dev y prod)
-RUN npm install
-
-# Copia el resto del código fuente
 COPY . .
-
-# Transpila next.config.ts a next.config.js (requerido para producción)
-RUN npx tsx --no-warnings ./next.config.ts > next.config.js
-
-# Build de la app Next.js (modo producción)
 RUN npm run build
 
-# Etapa 2: Producción
 FROM node:20-alpine AS runner
 
 WORKDIR /app
+ENV NODE_ENV=production
 
-# Copia solo lo necesario para producción
-COPY --from=builder /app/package.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/.next ./.next
+RUN addgroup -S nextjs && adduser -S nextjs -G nextjs
+
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./next.config.js
 
-# Expone el puerto usado por la app
+USER nextjs
+
 EXPOSE 3000
 
-# Comando para iniciar la app en modo producción
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
