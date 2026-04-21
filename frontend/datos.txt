@@ -1,0 +1,526 @@
+// tailwind.config.ts
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: ["./src/**/*.{ts,tsx}"], // ✅ Tu ruta actual
+  theme: {
+    extend: {
+      fontFamily: {
+        // Vinculamos la variable de Next.js (--font-ubuntu) con Tailwind
+        sans: ["var(--font-ubuntu)", "ui-sans-serif", "system-ui"],
+        mono: ["var(--font-geist-mono)", "ui-monospace", "SFMono-Regular"],
+      },
+      colors: {
+        hoverBlue: "#2874A6",
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --accent: #2874A6;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+
+  /* ✅ Actualizado: Ahora apunta a la variable de Ubuntu */
+  --font-sans: var(--font-ubuntu), ui-sans-serif, system-ui;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  /* ✅ Usa la variable --font-sans que ya definimos arriba */
+  font-family: var(--font-sans);
+  antialiased: true;
+}
+import type { Metadata } from "next";
+// 1. Importamos Ubuntu en lugar de Inter
+import { Ubuntu, Geist_Mono } from "next/font/google";
+
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
+
+// 2. Configuramos la fuente Ubuntu
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"], // Definimos los pesos que necesites
+  variable: "--font-ubuntu",
+});
+
+const geistMono = Geist_Mono({
+  subsets: ["latin"],
+  variable: "--font-geist-mono",
+});
+
+export const metadata: Metadata = {
+  title: "Androdri S.A.S | Desarrollo Web en Colombia que Genera Clientes",
+  description:
+    "Creamos páginas web y software a medida que generan clientes y aumentan tus ventas. Diseño moderno, SEO avanzado y alto rendimiento.",
+  // ... resto de tu metadata se mantiene igual
+ keywords: [
+    // --- Segmento: Negocio y Conversión ---
+    "desarrollo web en Colombia",
+    "páginas web que generan clientes",
+    "diseño web empresarial",
+    "agencia de software Bogotá",
+    "tecnología para aumentar ventas",
+
+    // --- Segmento: Desarrollo Élite (Next.js / Python) ---
+    "desarrollo en Next.js",
+    "programación en Python",
+    "desarrollo de software a medida",
+    "aplicaciones móviles React Native",
+
+    // --- Segmento: Seguridad e Infraestructura (Nuevos de tus imágenes) ---
+    "seguridad informática ISO 27001 Colombia",
+    "consultoría en ciberseguridad empresarial",
+    "servidores Cloud y KVM",
+    "infraestructura tecnológica escalable",
+    "mantenimiento técnico preventivo",
+
+    // --- Segmento: Innovación y Finanzas (Nuevos de tus imágenes) ---
+    "implementación de inteligencia artificial",
+    "pasarelas de pago e-commerce",
+    "integración de firma digital",
+    "capacitación técnica para empresas",
+    "automatización de flujos transaccionales",
+  ],
+
+  authors: [{ name: "Androdri S.A.S" }],
+
+  openGraph: {
+    title: "Desarrollo Web en Colombia | Androdri S.A.S",
+    description:
+      "Creamos páginas web rápidas, modernas y optimizadas para convertir visitas en clientes. Haz crecer tu negocio hoy.",
+    url: "https://androdri.com",
+    siteName: "Androdri",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+      },
+    ],
+    locale: "es_CO",
+    type: "website",
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="es">
+      {/* 3. Aplicamos la variable de Ubuntu al body */}
+      <body className={`${ubuntu.variable} ${geistMono.variable} font-sans antialiased`}>
+        <Navbar />
+        {children}
+        <WhatsAppButton />
+        <Footer />
+      </body>
+    </html>
+  );
+}
+"use client";
+import { TypeAnimation } from "react-type-animation";
+import dynamic from "next/dynamic";
+import { motion } from "framer-motion";
+import { PricingSection } from "@/components/PricingSection";
+import { 
+  ArrowRight, 
+  Cpu, 
+  Smartphone, 
+  ShieldCheck, 
+  BarChart3, 
+  Layers, 
+  Zap, 
+  Globe,
+  Fingerprint,
+  Bot,
+    MonitorCheck, 
+  GraduationCap, 
+  BrainCircuit, 
+  ShoppingBag, 
+  Cloud, 
+  Layout,
+
+  CheckCircle // Icono que faltaba
+} from "lucide-react";
+
+
+
+const ModelViewer = dynamic(() => import("@/components/ModelViewer"), { ssr: false });
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-white text-slate-900 overflow-x-hidden">
+      
+      {/* 🚀 HERO SECTION: REEQUILIBRADA */}
+      <section className="relative pt-20 pb-32 px-6 lg:px-12 max-w-7xl mx-auto min-h-[90vh] flex items-center">
+        {/* Glow de fondo más sutil para no ensuciar el 3D */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_#f1f5f9_0%,transparent_70%)] -z-10 opacity-50" />
+        
+        <div className="grid lg:grid-cols-2 gap-16 items-center w-full">
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.5, ease: "easeOut" }} // Movimiento de entrada más lento
+            className="space-y-10 z-10"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900 text-white text-[10px] font-black uppercase tracking-[0.3em] shadow-sm">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#2874A6] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#2874A6]"></span>
+              </span>
+              Sistemas de Alto Rendimiento
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.95] text-slate-900">
+              Ingeniería que <br />
+              <span className="text-[#2874A6] inline-block">
+                <TypeAnimation
+                  sequence={[
+                    "Evoluciona.", 3500, // Aumentado a 3.5 segundos de espera
+                    "Escala.", 3500,
+                    "Conecta.", 3500,
+                  ]}
+                  speed={30} // Velocidad de escritura más lenta y elegante
+                  repeat={Infinity}
+                />
+              </span>
+            </h1>
+
+            <p className="text-lg md:text-xl text-slate-500 max-w-lg leading-relaxed font-medium border-l-2 border-slate-100 pl-6">
+              En <span className="text-slate-900 font-bold">Androdri S.A.S</span>, diseñamos soluciones donde la estética y la potencia técnica convergen para transformar negocios.
+            </p>
+
+            <div className="flex flex-wrap gap-5 pt-4">
+              <button className="bg-[#2874A6] text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-blue-100 hover:scale-105 transition-all flex items-center gap-3 group">
+                Catálogo
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+            </div>
+          </motion.div>
+
+          {/* MODELO 3D: Con más espacio visual */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 2 }} // El modelo aparece después del texto suavemente
+            className="h-[550px] lg:h-[750px] relative flex items-center justify-center cursor-grab active:cursor-grabbing"
+          >
+            {/* El Modelo es ahora el protagonista absoluto del lado derecho */}
+            <ModelViewer />
+          </motion.div>
+        </div>
+      </section>
+
+      {/* SECCIÓN DE SERVICIOS... (se mantiene igual pero con espaciado amplio) */}
+      <section className="py-32 bg-slate-50 border-y border-slate-100 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-24 space-y-6">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter">Ecosistema <span className="text-[#2874A6]">Digital</span></h2>
+            <div className="h-1 w-20 bg-[#2874A6] mx-auto rounded-full" />
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <ServiceCard icon={<Layers />} title="Apps Web & Móviles" desc="Arquitecturas escalables con Next.js y React Native." />
+            <ServiceCard icon={<Bot />} title="Inteligencia Artificial" desc="Automatización y modelos predictivos personalizados." />
+            <ServiceCard icon={<Zap />} title="Pasarelas de Pago" desc="Integración de flujos transaccionales y E-commerce." />
+            <ServiceCard icon={<Fingerprint />} title="Firma Digital" desc="Sistemas legales de autenticación documental." />
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-white">
+        <PricingSection />
+      </section>
+
+       {/* 🚀 HERO */}
+      <section className="relative py-24 md:py-32 overflow-hidden bg-white">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full">
+          <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-blue-50 blur-[120px] opacity-60"></div>
+        </div>
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center px-6">
+          <motion.span 
+            initial={{ opacity: 0 }} 
+            animate={{ opacity: 1 }} 
+            className="inline-block px-4 py-1 mb-6 text-[#2874A6] font-bold tracking-widest uppercase text-xs bg-blue-50 border border-blue-100 rounded-full"
+          >
+            Ingeniería de Software de Clase Mundial
+          </motion.span>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl md:text-7xl font-extrabold mt-4 mb-8 leading-tight tracking-tight text-slate-900"
+          >
+            No solo creamos webs, <br />
+            <span className="text-[#2874A6]">creamos activos digitales.</span>
+          </motion.h1>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="text-xl text-slate-500 max-w-3xl mx-auto leading-relaxed"
+          >
+            Fusionamos ingeniería avanzada con diseño orientado a la conversión para 
+            escalar tu facturación, proteger tu información y automatizar tu crecimiento.
+          </motion.p>
+        </div>
+      </section>
+
+      {/* 🧩 SERVICIOS */}
+      <section className="py-24 px-6 bg-slate-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4 text-slate-900">Soluciones que impulsan tu rentabilidad</h2>
+            <p className="text-slate-500 max-w-2xl mx-auto text-lg italic">Infraestructura técnica robusta diseñada para el mercado global.</p>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Desarrollo Web de Élite",
+                desc: "Creamos experiencias digitales rápidas y memorables usando Next.js. No solo es estética, es una herramienta de ventas optimizada para Google.",
+                icon: <Layout size={28} />,
+                impacto: "Velocidad de carga < 1s"
+              },
+              {
+                title: "Seguridad ISO 27001",
+                desc: "Protegemos el activo más valioso de tu empresa: los datos. Implementamos protocolos de seguridad bajo estándares internacionales para evitar ataques.",
+                icon: <ShieldCheck size={28} />,
+                impacto: "Blindaje total"
+              },
+              {
+                title: "E-commerce y Pagos",
+                desc: "Vende sin límites. Integramos pasarelas de pago seguras y sistemas de inventario que funcionan en piloto automático las 24 horas.",
+                icon: <ShoppingBag size={28} />,
+                impacto: "Ventas 24/7"
+              },
+              {
+                title: "Inteligencia Artificial",
+                desc: "Implementamos soluciones de IA para automatizar la atención al cliente y predecir tendencias de mercado. Tecnología que ahorra tiempo y dinero.",
+                icon: <BrainCircuit size={28} />,
+                impacto: "Eficiencia predictiva"
+              },
+              {
+                title: "Capacitación Técnica",
+                desc: "Entrenamos a tu equipo en Python, Next.js y metodologías ágiles. Elevamos el nivel técnico de tu empresa para que dominen el futuro.",
+                icon: <GraduationCap size={28} />,
+                impacto: "Talento de alto nivel"
+              },
+              {
+                title: "Servidores Cloud y KVM",
+                desc: "Hosting de alto rendimiento en la nube. Tu plataforma siempre en línea, protegida y con escalabilidad instantánea para tráfico masivo.",
+                icon: <Cloud size={28} />,
+                impacto: "99.9% Uptime"
+              },
+              {
+                title: "Mantenimiento y Soporte",
+                desc: "Limpieza profunda de sistemas e instalación de software empresarial. Optimizamos tus equipos para que la tecnología nunca sea un obstáculo.",
+                icon: <MonitorCheck size={28} />,
+                impacto: "Equipos al 100%"
+              }
+            ].map((service, i) => (
+              <motion.div
+                key={i}
+                whileHover={{ y: -10 }}
+                className="group p-8 bg-white border border-slate-200 rounded-[2rem] shadow-xl shadow-slate-200/40 transition-all duration-300 hover:border-[#2874A6]/30 hover:bg-blue-50/30"
+              >
+                <div className="mb-6 flex justify-between items-start">
+                  <div className="p-4 bg-slate-50 rounded-2xl text-[#2874A6] group-hover:scale-110 group-hover:bg-[#2874A6] group-hover:text-white transition-all duration-300">
+                    {service.icon}
+                  </div>
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-[#2874A6] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+                    {service.impacto}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-bold mb-4 text-slate-800">{service.title}</h3>
+                <p className="text-slate-500 leading-relaxed text-sm md:text-base">
+                  {service.desc}
+                </p>
+                <div className="mt-6 flex items-center gap-2 text-sm font-bold text-[#2874A6] opacity-0 group-hover:opacity-100 transition-opacity">
+                  Consultar ahora <ArrowRight size={16} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ⭐ SECCIÓN DE IMPACTO */}
+      <section className="py-24 bg-white px-6">
+        <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
+          <div>
+            <h2 className="text-4xl font-bold mb-8 leading-tight text-slate-900">¿Por qué las empresas eligen <br/> nuestra ingeniería?</h2>
+            <div className="space-y-8">
+              {[
+                { t: "Cero Cuellos de Botella", d: "Sistemas diseñados para procesar miles de transacciones simultáneas sin errores." },
+                { t: "Estándares Bancarios", d: "Seguridad ISO 27001 para que duermas tranquilo sabiendo que tu negocio está blindado." },
+                { t: "Transferencia de Conocimiento", d: "No solo entregamos software, capacitamos a tu personal para el éxito a largo plazo." }
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-5 items-start">
+                  <div className="p-1 bg-blue-50 rounded-full">
+                    <CheckCircle className="text-[#2874A6]" size={24} />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-xl text-slate-800 mb-1">{item.t}</h4>
+                    <p className="text-slate-500 leading-relaxed">{item.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className="bg-gradient-to-br from-[#2874A6] to-blue-600 rounded-[3rem] p-12 text-white shadow-2xl shadow-blue-200 relative overflow-hidden">
+                <div className="relative z-10">
+                   <div className="text-5xl mb-6 opacity-40 font-serif">“</div>
+                   <h3 className="text-3xl font-bold mb-6 leading-tight italic text-blue-50">El costo de no innovar es mayor al de invertir.</h3>
+                   <p className="text-blue-100 mb-10 text-xl leading-relaxed">"Androdri S.A.S transformó nuestra plataforma, logrando procesar un 40% más de pedidos sin errores técnicos."</p>
+                   <div className="flex items-center gap-4">
+                     <div className="h-1 w-10 bg-blue-300"></div>
+                     <p className="font-bold tracking-wide uppercase text-sm">Empresa Fintech de Alto Impacto</p>
+                   </div>
+                </div>
+                <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 🔥 CTA FINAL */}
+      <section className="py-32 text-center px-6 bg-slate-50 relative overflow-hidden">
+        <div className="max-w-4xl mx-auto relative z-10">
+          <h2 className="text-4xl md:text-6xl font-black mb-8 text-slate-900 tracking-tighter">
+            ¿Listo para dominar tu <br /> mercado digital?
+          </h2>
+          <p className="text-slate-500 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
+            Agenda una consultoría técnica gratuita hoy mismo. Analizaremos tu infraestructura y te entregaremos una hoja de ruta para tu transformación digital.
+          </p>
+          <motion.a
+            whileHover={{ scale: 1.05, shadow: "0 20px 40px -10px rgba(40, 116, 166, 0.4)" }}
+            whileTap={{ scale: 0.95 }}
+            href="/contacto"
+            className="inline-block bg-[#2874A6] text-white px-14 py-6 rounded-3xl text-xl font-extrabold transition-all duration-300 shadow-lg"
+          >
+            Hablar con un experto ahora
+          </motion.a>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+function ServiceCard({ icon, title, desc }: { icon: React.ReactNode, title: string, desc: string }) {
+  return (
+    <motion.div 
+      whileHover={{ y: -10 }}
+      className="p-10 bg-white rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-blue-900/5 transition-all flex flex-col gap-5 group"
+    >
+      <div className="w-14 h-14 rounded-2xl bg-slate-50 flex items-center justify-center text-[#2874A6] group-hover:bg-[#2874A6] group-hover:text-white transition-all duration-500 transform group-hover:rotate-6">
+        {icon}
+      </div>
+      <h3 className="text-2xl font-black text-slate-900 tracking-tight">{title}</h3>
+      <p className="text-slate-500 font-medium leading-relaxed">{desc}</p>
+    </motion.div>
+  );
+}
+
+fuente ubuntu
+const ubuntu = Ubuntu({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "700"], // Definimos los pesos que necesites
+  variable: "--font-ubuntu",
+});
+light
+titulos
+#2874a6
+titulos
+#000
+fondo
+#fff
+
+
+dark
+titulos
+#fff
+titulos
+#2874a6
+fondo
+#000
+
+Sea responsive para celular, table, portatil, pantalla grande
+utilice agrandar y empequeñar letra
+
+
+Desarrollo web
+app moviles 
+seguridad Iso 27001
+E-comers
+pasarelas de pago
+firma digitales
+inteligencia artificial
+Capacitaciones en Desarrollo
+servidores cloud AWS, Google cloud, Azure, hostinger, railway 
+mantenimiento y soporte
+ instalacion sistemas windows
+ instalacion sistemas kali linux
+ instalacion de offices
+ venta de correos (gmail y outlook)
+
+Envio de mails
+Firmas
+Gestor documental, google, dropbox
+informes xmls, csv
+Reporte pdf, word
+whatsapp
+chat interno
+pagos online
+AI PREGUNTAS
+GOOGLE CALENDAR
+Outlook calendar
+Calendarios
+sistemas de notificaicones
+flujos de estados
+dashboard
+gantt
+facturacion
+Pagina WEB
+Login
+calificacion operacional incubadora
+firmas
+Horarios empleados
+automatizaciones
+ia respuestas 
+Pague Web
+Login
+productos icomes
+pasarela de pagos
+facturacion 
+dashboard
+informes
+excel y pdf
+
+ayudame amejorar el seo y complementar y estrucutrar mipagina web que sea de alto impacto entendible para el cliente innovador y captar clientes que se awesome mi proyecto
