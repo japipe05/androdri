@@ -5,7 +5,7 @@ import { Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
+import { WhatsAppButton } from "@/components/WhatsAppButton";
 // ✅ Inter como fuente principal
 const inter = Inter({
   subsets: ["latin"],
@@ -35,6 +35,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
         <Navbar />
         {children}
+        <WhatsAppButton />
         <Footer />
       </body>
     </html>

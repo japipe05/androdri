@@ -11,7 +11,7 @@ export interface SendEmailResponse {
 }
 
 const BASE_URL =
-  process.env.EMAIL_API_URL ?? "http://127.0.0.1:8000";
+  process.env.EMAIL_API_URL ;
 
 export async function sendEmailService(
   payload: SendEmailDTO

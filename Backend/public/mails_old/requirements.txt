@@ -1,9 +1,0 @@
-fastapi
-uvicorn
-python-multipart
-pydantic-settings
-pyjwt
-pyzipper
-jinja2
-email-validator
-sendgrid
