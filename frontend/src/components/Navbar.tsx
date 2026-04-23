@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion"; // Para animaciones fluidas
 import {
   Menu,
   X,
@@ -13,6 +14,10 @@ import {
   Youtube,
   Linkedin
 } from "lucide-react";
+
+// Extraemos las constantes para fácil mantenimiento
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573224612382";
+const EMAIL = "servicios@androdri.com";
 
 const TikTokIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
@@ -30,135 +35,101 @@ const Navbar = () => {
 
   return (
     <header className="sticky top-0 z-50 shadow-2xl">
-
-      {/* 🌌 TOP BAR CENTRADA Y AWESOME */}
+      {/* 🌌 TOP BAR */}
       <div className="bg-gradient-to-r from-slate-900 via-[#0a0f1a] to-slate-900 text-white py-2.5 px-6 hidden md:block border-b border-white/5">
         <div className="container mx-auto flex justify-center items-center gap-12">
-
-          {/* Grupo de Contacto Centrado */}
+          
           <div className="flex items-center justify-center gap-12 border-r border-white/20 pr-12">
             {/* EMAIL */}
-            <a
-              href="mailto:servicios@androdri.com"
-              className="group flex items-center gap-4 text-[15px] font-black tracking-normal text-white hover:text-white transition-all"
-            >
-              <div className="bg-white/10 p-2.5 rounded-2xl border border-white/20 group-hover:bg-[#2874A6] group-hover:border-[#2874A6] group-hover:shadow-[0_0_15px_rgba(40,116,166,0.5)] transition-all duration-300">
-                <Mail className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            <a href={`mailto:${EMAIL}`} className="group flex items-center gap-4 text-[14px] font-black tracking-normal text-white transition-all">
+              <div className="bg-white/10 p-2.5 rounded-2xl border border-white/20 group-hover:bg-[#2874A6] transition-all duration-300">
+                <Mail className="w-4 h-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-[#2874A6] font-black mb-0.5 animate-pulse">Soporte</span>
-                <span className="drop-shadow-sm font-bold tracking-tight">
-                  servicios@androdri.com
-                </span>
+                <span className="text-[9px] uppercase tracking-[0.2em] text-[#2874A6] font-black">Soporte</span>
+                <span className="font-bold">{EMAIL}</span>
               </div>
             </a>
 
-            {/* SEPARADOR VIBRANTE */}
-            <div className="h-10 w-px bg-gradient-to-b from-transparent via-white/20 to-transparent"></div>
-
             {/* WHATSAPP */}
-            <a
-              href="https://wa.me/573224612382"
-              className="group flex items-center gap-4 text-[15px] font-black tracking-normal text-white hover:text-white transition-all"
-            >
-              <div className="bg-white/10 p-2.5 rounded-2xl border border-white/20 group-hover:bg-green-500 group-hover:border-green-500 group-hover:shadow-[0_0_15px_rgba(34,197,94,0.5)] transition-all duration-300">
-                <MessageCircle className="w-5 h-5 text-white group-hover:scale-110 transition-transform" />
+            <a href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" className="group flex items-center gap-4 text-[14px] font-black tracking-normal text-white transition-all">
+              <div className="bg-white/10 p-2.5 rounded-2xl border border-white/20 group-hover:bg-green-500 transition-all duration-300">
+                <MessageCircle className="w-4 h-4" />
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] uppercase tracking-[0.2em] text-green-400 font-black mb-0.5 animate-pulse">Online</span>
-                <span className="drop-shadow-sm font-bold tracking-tight">
-                  +57 322 461 2382
-                </span>
+                <span className="text-[9px] uppercase tracking-[0.2em] text-green-400 font-black">Online</span>
+                <span className="font-bold">+{WHATSAPP_NUMBER}</span>
               </div>
             </a>
           </div>
 
-          {/* Grupo de Redes con Efecto Glow */}
+          {/* REDES SOCIALES */}
           <div className="flex items-center gap-6">
             <span className="flex items-center gap-2 text-[9px] font-black uppercase tracking-[0.3em] text-[#2874A6] animate-pulse">
               <Zap className="w-3 h-3 fill-current" /> Connect
             </span>
             <div className="flex gap-4">
-              <a href="#" className={socialIconStyle}><Facebook className="w-4 h-4" /></a>
-              <a href="#" className={socialIconStyle}><Instagram className="w-4 h-4" /></a>
-              <a href="#" className={socialIconStyle}><TikTokIcon /></a>
-              <a href="#" className={socialIconStyle}><Youtube className="w-4 h-4" /></a>
-              <a href="#" className={socialIconStyle}><Linkedin className="w-4 h-4" /></a>
+              <a href="#" aria-label="Facebook" className={socialIconStyle}><Facebook className="w-4 h-4" /></a>
+              <a href="#" aria-label="Instagram" className={socialIconStyle}><Instagram className="w-4 h-4" /></a>
+              <a href="#" aria-label="TikTok" className={socialIconStyle}><TikTokIcon /></a>
+              <a href="#" aria-label="LinkedIn" className={socialIconStyle}><Linkedin className="w-4 h-4" /></a>
             </div>
           </div>
-
         </div>
       </div>
 
       {/* 🧭 MAIN NAVBAR */}
-      <nav className="bg-white/95 backdrop-blur-md p-5 border-b border-slate-100">
+      <nav className="bg-white/95 backdrop-blur-md p-4 border-b border-slate-100">
         <div className="container mx-auto flex items-center justify-between">
-
-          {/* LOGO */}
           <Link href="/" className="group relative">
-            <h1 className="text-2xl md:text-3xl font-black tracking-tighter text-slate-900">
+            <h1 className="text-xl md:text-2xl font-black tracking-tighter text-slate-900">
               ANDRODRI<span className="text-[#2874A6]"> S.A.S</span>
             </h1>
-            <div className="absolute -bottom-1 left-0 w-0 h-1 bg-[#2874A6] group-hover:w-full transition-all duration-500 shadow-[0_0_15px_rgba(40,116,166,0.5)]" />
           </Link>
 
           {/* DESKTOP MENU */}
-          <ul className="hidden md:flex gap-8 text-[13px] font-black items-center text-slate-500 uppercase tracking-widest">
-            <li><Link className={navLinkStyle} href="/">Inicio</Link></li>
-            <li><Link className={navLinkStyle} href="/servicios">Servicios</Link></li>
-            <li><Link className={navLinkStyle} href="/proyectos">Proyectos</Link></li>
-            <li><Link className={navLinkStyle} href="/#precios">Precios</Link></li>
-            <li><Link className={navLinkStyle} href="/contacto">Contacto</Link></li>
-
+          <ul className="hidden md:flex gap-8 text-[12px] font-black items-center text-slate-600 uppercase tracking-widest">
+            {["Inicio", "Servicios", "Proyectos", "Precios", "Contacto"].map((item) => (
+              <li key={item}>
+                <Link className={navLinkStyle} href={item === "Inicio" ? "/" : `/${item.toLowerCase().replace("precios", "#precios")}`}>
+                  {item}
+                </Link>
+              </li>
+            ))}
             <li>
-              <Link
-                href="/contacto"
-                className="relative overflow-hidden bg-[#2874A6] text-white px-8 py-3 rounded-full font-black hover:bg-slate-900 transition-all shadow-[0_10px_20px_-5px_rgba(40,116,166,0.4)] flex items-center gap-2 group"
-              >
-                <span className="relative z-10">COTIZAR</span>
-                <Send className="w-3.5 h-3.5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform relative z-10" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+              <Link href="/contacto" className="bg-[#2874A6] text-white px-6 py-2.5 rounded-full font-black hover:bg-slate-900 transition-all shadow-lg flex items-center gap-2 group">
+                COTIZAR <Send className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
               </Link>
             </li>
           </ul>
 
           {/* MOBILE BUTTON */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-2xl bg-slate-900 text-white shadow-lg"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2 rounded-xl bg-slate-900 text-white">
+            {isOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
 
-        {/* MOBILE MENU */}
-        {isOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-white p-8 shadow-2xl border-t border-slate-50 animate-in fade-in zoom-in duration-300">
-            <ul className="flex flex-col gap-8 text-xl font-black text-slate-900 uppercase tracking-tighter">
-              <li><Link onClick={() => setIsOpen(false)} href="/">Inicio</Link></li>
-              <li><Link onClick={() => setIsOpen(false)} href="/servicios">Servicios</Link></li>
-              <li><Link onClick={() => setIsOpen(false)} href="/proyectos">Proyectos</Link></li>
-              <li><Link onClick={() => setIsOpen(false)} href="/#precios">Precios</Link></li>
-              <li><Link onClick={() => setIsOpen(false)} href="/contacto">Contacto</Link></li>
-
-              <li className="pt-8 border-t border-slate-100 space-y-6">
-                <div className="flex justify-around bg-slate-50 p-4 rounded-3xl">
-                  <Facebook className="text-[#2874A6]" />
-                  <Instagram className="text-[#2874A6]" />
-                  <TikTokIcon />
-                  <Linkedin className="text-[#2874A6]" />
-                </div>
-                <Link
-                  onClick={() => setIsOpen(false)}
-                  href="/contacto"
-                  className="bg-[#2874A6] text-white px-4 py-5 rounded-[2rem] text-center block w-full shadow-2xl font-black italic"
-                >
-                  ¡EMPECEMOS YA!
-                </Link>
-              </li>
-            </ul>
-          </div>
-        )}
+        {/* MOBILE MENU CON ANIMACIÓN */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden overflow-hidden bg-white"
+            >
+              <ul className="flex flex-col gap-6 py-8 text-lg font-black text-slate-900 uppercase tracking-tighter">
+                {["Inicio", "Servicios", "Proyectos", "Precios", "Contacto"].map((item) => (
+                  <li key={item} className="px-4">
+                    <Link onClick={() => setIsOpen(false)} href={item === "Inicio" ? "/" : `/${item.toLowerCase()}`}>
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );
