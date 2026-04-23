@@ -9,8 +9,8 @@ import {
   ShoppingBag, 
   Cloud, 
   Layout,
-  ArrowRight,
-  CheckCircle 
+  ArrowRight
+   
 } from "lucide-react";
 
 export default function ServiciosPage() {
@@ -157,7 +157,7 @@ export default function ServiciosPage() {
             Agenda una consultoría técnica hoy mismo. Analizaremos tu infraestructura y te entregaremos una hoja de ruta para tu transformación digital exponencial.
           </p>
           <motion.a
-            whileHover={{ scale: 1.05, shadow: "0 20px 40px -10px rgba(40, 116, 166, 0.4)" }}
+            whileHover={{ scale: 1.05, boxShadow: "0 20px 40px -10px rgba(40, 116, 166, 0.4)" }}
             whileTap={{ scale: 0.95 }}
             href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola Androdri S.A.S, me gustaría agendar una consultoría técnica gratuita para mi empresa.")}`}
             target="_blank"

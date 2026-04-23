@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Lock, EyeOff, FileText, Server, Globe } from "lucide-react";
 
 export default function PoliticaPrivacidad() {
-  const lastUpdate = "22 de abril de 2026";
 
   return (
     <main className="min-h-screen bg-white text-slate-900 py-24 px-6 lg:px-12 selection:bg-[#2874A6] selection:text-white">
@@ -22,7 +21,7 @@ export default function PoliticaPrivacidad() {
           Política de <span className="text-[#2874A6]">Privacidad</span>
         </h1>
         <p className="text-slate-500 font-medium italic">
-          Última actualización: {lastUpdate}
+          Última actualización: 23 de abril de 2026
         </p>
       </section>
 

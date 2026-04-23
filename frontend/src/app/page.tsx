@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { PricingSection } from "@/components/PricingSection";
 import {
   ArrowRight, ShieldCheck, Fingerprint,
-  MonitorCheck, BrainCircuit, ShoppingBag,
+   BrainCircuit, ShoppingBag,
   Cloud, Layout, CheckCircle
 } from "lucide-react";
 
@@ -68,7 +68,7 @@ export default function Home() {
               </p>
 
               <blockquote className="pl-6 italic text-slate-400 text-sm border-l-4 border-slate-200">
-                "Somos lo que hacemos día tras día. La excelencia, no es un acto, sino un hábito."
+                {`Somos lo que hacemos día tras día. La excelencia, no es un acto, sino un hábito.`}
                 <span className="block mt-2 font-bold text-slate-500">— Aristóteles</span>
                 <span className="text-[10px] uppercase tracking-widest text-[#2874A6]">Ingeniería de clase mundial por definición.</span>
               </blockquote>
@@ -188,7 +188,7 @@ export default function Home() {
               <div className="text-6xl mb-6 opacity-30 font-serif">“</div>
               <h3 className="text-3xl font-bold mb-6 italic text-blue-50">El costo de no innovar es mayor al de invertir.</h3>
               <p className="text-blue-100 mb-10 text-xl leading-relaxed">
-                "Multiplicamos por tres nuestros prospectos calificados desde que implementamos la estructura de Androdri S.A.S."
+                {`Multiplicamos por tres nuestros prospectos calificados desde que implementamos la estructura de Androdri S.A.S.`}
               </p>
               <div className="flex items-center gap-4">
                 <div className="h-1 w-10 bg-blue-300"></div>
@@ -217,10 +217,10 @@ export default function Home() {
           </p>
 
           <motion.a
-            whileHover={{
-              scale: 1.05,
-              shadow: "0 20px 50px -10px rgba(40, 116, 166, 0.5)"
-            }}
+          whileHover={{
+  scale: 1.05,
+  boxShadow: "0 20px 50px -10px rgba(40, 116, 166, 0.5)"
+}}
             whileTap={{ scale: 0.95 }}
             href={getWhatsAppLink("Hola Androdri S.A.S, necesito hablar con un experto sobre mis proyectos digitales.")}
             target="_blank"

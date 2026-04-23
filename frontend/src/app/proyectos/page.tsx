@@ -1,14 +1,14 @@
 "use client";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { 
-  ArrowRight, 
+   
   ExternalLink, 
   Zap, 
-  ShieldCheck, 
-  Database,
+  
   Search,
   MessageSquareCode,
-  Layout,
+  
   Cpu,
   Globe,
   MousePointer2,
@@ -19,10 +19,8 @@ import {
 export default function ProyectosPage() {
     const WHATSAPP_NUMBER = "573224612382";
 
-  const getWhatsAppLink = (projectName: string) => {
-    const message = `Hola Androdri S.A.S, vi el proyecto de ${projectName} en su portafolio y me gustaría desarrollar algo similar para mi empresa.`;
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-  };
+
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -88,11 +86,12 @@ export default function ProyectosPage() {
           >
            <div className="relative rounded-[3.5rem] bg-slate-100 p-2 overflow-hidden border border-slate-200">
   <div className="bg-white rounded-[3rem] overflow-hidden aspect-[16/10] flex items-center justify-center p-12 relative">
-    <img 
-      src="/img/sisconelite.png" 
-      alt="SisconElite S.A.S" 
-      className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
-    />
+   <Image 
+  src="/img/sisconelite.png"
+  alt="SisconElite S.A.S"
+  fill
+  className="object-cover z-10 transition-transform duration-700 group-hover:scale-110"
+/>
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
   </div>
 </div>
@@ -114,9 +113,9 @@ export default function ProyectosPage() {
             <div className="space-y-4">
               <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">SisconElite S.A.S</h2>
               <p className="inline-block px-4 py-1 rounded-lg bg-green-50 text-green-700 font-bold text-sm">Case Study: FinTech & ERP</p>
-              <p className="text-slate-600 text-lg leading-relaxed">
-                Reinventamos la arquitectura de datos para soportar millones de transacciones contables. Una solución **rápida, segura y visualmente impecable** que redefine la consultoría tributaria.
-              </p>
+             <p className="text-slate-600 text-lg leading-relaxed">
+  Reinventamos la arquitectura de datos para soportar millones de transacciones contables. Una solución <strong>rápida, segura y visualmente impecable</strong> que redefine la consultoría tributaria.
+</p>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
@@ -176,9 +175,9 @@ export default function ProyectosPage() {
               <MousePointer2 className="w-12 h-12 mb-6 group-hover:scale-125 transition-transform" />
               <div>
                 <h3 className="text-3xl font-black mb-4 italic">Fricción Cero</h3>
-                <p className="text-blue-100 text-sm">
-                  Interfaces diseñadas para que un cliente pase de "curioso" a "contratado" en segundos.
-                </p>
+              <p className="text-blue-100 text-sm">
+  Interfaces diseñadas para que un cliente pase de {`"curioso"`} a {`"contratado"`} en segundos.
+</p>
               </div>
             </div>
 

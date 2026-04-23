@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Scale, Gavel, FileCode, Clock, ShieldAlert, BadgeCheck } from "lucide-react";
 
 export default function TerminosServicio() {
-  const lastUpdate = "22 de abril de 2026";
+
 
   return (
     <main className="min-h-screen bg-white text-slate-900 py-24 px-6 lg:px-12 selection:bg-[#2874A6] selection:text-white">
@@ -64,9 +64,9 @@ export default function TerminosServicio() {
             <h2 className="text-2xl font-bold text-slate-900 mb-4 flex items-center gap-3">
               <FileCode className="text-[#2874A6]" size={24} /> 2. Propiedad del Código y Activos
             </h2>
-            <p className="leading-relaxed">
-              En el modelo de <strong>"Páginas Web (Propiedad)"</strong>, una vez liquidado el pago total, el cliente adquiere la propiedad total sobre el código fuente y activos visuales. En modelos de <strong>"Suscripción"</strong>, Androdri S.A.S otorga una licencia de uso temporal sobre la infraestructura y el diseño mientras la suscripción permanezca activa.
-            </p>
+          <p className="leading-relaxed">
+  En el modelo de <strong>{`"Páginas Web (Propiedad)"`}</strong>, una vez liquidado el pago total, el cliente adquiere la propiedad total sobre el código fuente y activos visuales. En modelos de <strong>{`"Suscripción"`}</strong>, Androdri S.A.S otorga una licencia de uso temporal sobre la infraestructura y el diseño mientras la suscripción permanezca activa.
+</p>
           </article>
 
           <article>

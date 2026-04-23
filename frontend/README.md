@@ -75,4 +75,6 @@ docker run -d `
 
 
 
-  
+  npm audit fix
+  npm install next@15.5.15
+  > npm run dev -- -p 7001  

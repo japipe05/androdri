@@ -3,7 +3,7 @@
 import Link from "next/link";
 import {
   Facebook,
-  Youtube,
+
   Instagram,
   Linkedin,
   ShieldCheck,

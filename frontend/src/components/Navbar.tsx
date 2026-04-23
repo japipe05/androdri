@@ -5,14 +5,13 @@ import {
   Menu,
   X,
   Mail,
-  Phone,
+  Send,
+  MessageCircle,
+  Zap,
   Facebook,
   Instagram,
   Youtube,
-  Linkedin,
-  Send,
-  MessageCircle,
-  Zap
+  Linkedin
 } from "lucide-react";
 
 const TikTokIcon = () => (
