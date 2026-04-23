@@ -57,11 +57,11 @@ export default function ContactoPage() {
         transition={{ duration: 0.8 }}
         className="w-full max-w-5xl grid lg:grid-cols-12 bg-white rounded-[3rem] shadow-[0_50px_100px_-20px_rgba(40,116,166,0.15)] border border-slate-100 overflow-hidden"
       >
-        
+
         {/* COLUMNA IZQUIERDA: INFORMACIÓN E IMPACTO */}
         <div className="lg:col-span-5 bg-slate-900 p-12 text-white flex flex-col justify-between relative">
           <div className="space-y-6 relative z-10">
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               className="w-12 h-12 bg-[#2874A6] rounded-2xl flex items-center justify-center mb-8"
@@ -81,7 +81,7 @@ export default function ContactoPage() {
               <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#2874A6] transition-colors">
                 <Mail className="w-4 h-4" />
               </div>
-              contacto@androdri.com.co
+              servicios@androdri.com
             </div>
           </div>
 
@@ -100,7 +100,7 @@ export default function ContactoPage() {
                   <input
                     type="text"
                     name="name"
-                    placeholder="Ej. Juan Pérez"
+                    placeholder="Nombre"
                     value={form.name}
                     onChange={handleChange}
                     required

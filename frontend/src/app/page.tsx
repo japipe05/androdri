@@ -4,9 +4,9 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { PricingSection } from "@/components/PricingSection";
 import {
-  ArrowRight, ShieldCheck, Zap, Fingerprint, Bot,
-  MonitorCheck, GraduationCap, BrainCircuit, ShoppingBag,
-  Cloud, Layout, CheckCircle, Smartphone
+  ArrowRight, ShieldCheck, Fingerprint,
+  MonitorCheck, BrainCircuit, ShoppingBag,
+  Cloud, Layout, CheckCircle
 } from "lucide-react";
 
 // Cargamos el visor 3D de forma dinámica para no afectar el LCP
@@ -16,6 +16,13 @@ const ModelViewer = dynamic(() => import("@/components/ModelViewer"), {
 });
 
 export default function Home() {
+  const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+
+  // Función para generar links de WhatsApp rápidamente
+  const getWhatsAppLink = (message: string) => {
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  };
+
   return (
     <main className="min-h-screen bg-white text-slate-900 overflow-x-hidden selection:bg-[#2874A6] selection:text-white">
 
@@ -53,7 +60,6 @@ export default function Home() {
               </span>
             </h1>
 
-
             <div className="space-y-6">
               <p className="text-fluid-body text-slate-500 max-w-lg leading-relaxed font-medium border-l-4 border-[#2874A6] pl-6">
                 Diseñamos el futuro de tu infraestructura. En <span className="text-slate-900 font-bold">Androdri S.A.S</span>
@@ -67,19 +73,22 @@ export default function Home() {
                 <span className="text-[10px] uppercase tracking-widest text-[#2874A6]">Ingeniería de clase mundial por definición.</span>
               </blockquote>
             </div>
+
             <div className="flex flex-wrap gap-5 pt-4">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#2874A6] text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-blue-200 flex items-center gap-3 group"
-              >
-                Ver Catálogo
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </motion.button>
+              <a href="/Catalogos/catalogo.pptx" download="Catalogo_Androdri.pptx">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-[#2874A6] text-white px-10 py-5 rounded-2xl font-black text-sm uppercase tracking-widest shadow-2xl shadow-blue-200 flex items-center gap-3 group"
+                >
+                  Ver Catálogo
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </motion.button>
+              </a>
             </div>
           </motion.div>
 
-          {/* MODELO 3D: Interactivo */}
+          {/* MODELO 3D */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -91,7 +100,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 🧩 ECOSISTEMA DE SERVICIOS: Silos de Venta */}
+      {/* 🧩 ECOSISTEMA DE SERVICIOS */}
       <section className="py-32 bg-slate-50 border-y border-slate-100 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-24 space-y-4">
@@ -104,53 +113,59 @@ export default function Home() {
             <ServiceCard
               icon={<Layout size={28} />}
               title="Desarrollo Web Élite"
-              desc="Estructuras en Next.js optimizadas para SEO y conversión. Velocidad de carga < 1s."
+              desc="Sitios de alto rendimiento con Next.js. Planes desde $90k/mes o propiedad total. Incluye Hosting Pro (4GB RAM) y Dominio."
               impacto="ROI Inmediato"
+              link={getWhatsAppLink("Hola, me interesa el Desarrollo Web Élite.")}
             />
             <ServiceCard
               icon={<ShieldCheck size={28} />}
               title="Seguridad ISO 27001"
-              desc="Blindaje total de datos y protocolos de ciberseguridad bajo estándares internacionales."
+              desc="Blindaje bajo estándar ISO 27001. Pruebas de vulnerabilidad con Kali Linux, OWASP y auditoría de redes Metasploit."
               impacto="Riesgo Cero"
+              link={getWhatsAppLink("Hola, solicito información sobre Seguridad ISO 27001.")}
             />
             <ServiceCard
               icon={<ShoppingBag size={28} />}
-              title="E-commerce & Pagos"
-              desc="Integración de pasarelas de pago y automatización de flujos transaccionales 24/7."
-              impacto="+ Ventas"
+              title="Capacitaciones Tech"
+              desc="Entrenamiento experto en Python, Next.js, SQL Oracle y metodologías Scrum. Formación práctica para equipos de alto nivel."
+              impacto="Talento Humano"
+              link={getWhatsAppLink("Hola, me gustaría agendar una Capacitación Tech.")}
             />
             <ServiceCard
               icon={<BrainCircuit size={28} />}
               title="Inteligencia Artificial"
               desc="Modelos predictivos y automatización de procesos para ahorrar tiempo y dinero."
-              impacto="Eficiencia"
+              impacto="Innovación Continua"
+              link={getWhatsAppLink("Hola, quiero implementar Inteligencia Artificial en mi empresa.")}
             />
             <ServiceCard
               icon={<Cloud size={28} />}
               title="Cloud & Infraestructura"
-              desc="Servidores KVM, hosting de alto rendimiento y migración a AWS/Azure/Google Cloud."
+              desc="Mantenimiento preventivo, servidores KVM de alto rendimiento y migración a AWS/Azure/Google Cloud."
               impacto="99.9% Uptime"
+              link={getWhatsAppLink("Hola, necesito soporte en Cloud e Infraestructura.")}
             />
             <ServiceCard
               icon={<Fingerprint size={28} />}
-              title="Firma Digital & Legal"
-              desc="Sistemas de autenticación documental y gestión de firmas digitales seguras."
+              title="Metodología Ágil"
+              desc="Modelo flexible por horas para cambios en sitios existentes. Análisis, estimación clara y resultados medibles."
               impacto="Legal Tech"
+              link={getWhatsAppLink("Hola, necesito aplicar cambios ágiles en mi sitio web.")}
             />
           </div>
         </div>
       </section>
 
-      {/* ⭐ DIFERENCIADORES: Por qué Androdri? */}
+      {/* ⭐ DIFERENCIADORES */}
       <section className="py-32 bg-white px-6">
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-10">
             <h2 className="text-fluid-h2 font-bold leading-tight text-slate-900">¿Por qué las empresas eligen nuestra ingeniería?</h2>
             <div className="space-y-8">
               {[
-                { t: "Cero Cuellos de Botella", d: "Sistemas diseñados para procesar miles de transacciones simultáneas sin errores técnicos." },
-                { t: "Estándares Bancarios", d: "Seguridad ISO 27001 para que tu negocio esté blindado contra cualquier vulnerabilidad." },
-                { t: "Transferencia de Valor", d: "No solo entregamos software, capacitamos a tu equipo en Python, Next.js y metodologías ágiles." }
+                { t: "Arquitectura de Conversión Inteligente", d: "Transformamos tu presencia digital en un motor de ventas autónomo con IA." },
+                { t: "Velocidad de Élite y Rendimiento", d: "Tecnología de última generación para plataformas instantáneas." },
+                { t: "Escalabilidad y Autoridad Digital", d: "Sistemas blindados que proyectan la solidez de una corporación." }
               ].map((item, idx) => (
                 <motion.div key={idx} initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} className="flex gap-5 items-start">
                   <div className="p-2 bg-blue-50 rounded-full shrink-0">
@@ -173,11 +188,11 @@ export default function Home() {
               <div className="text-6xl mb-6 opacity-30 font-serif">“</div>
               <h3 className="text-3xl font-bold mb-6 italic text-blue-50">El costo de no innovar es mayor al de invertir.</h3>
               <p className="text-blue-100 mb-10 text-xl leading-relaxed">
-                "Androdri S.A.S transformó nuestra operativa, logrando procesar un 40% más de flujos transaccionales sin errores de servidor."
+                "Multiplicamos por tres nuestros prospectos calificados desde que implementamos la estructura de Androdri S.A.S."
               </p>
               <div className="flex items-center gap-4">
                 <div className="h-1 w-10 bg-blue-300"></div>
-                <p className="font-bold tracking-widest uppercase text-xs">Fintech Partner de Alto Impacto</p>
+                <p className="font-bold tracking-widest uppercase text-xs">Sisconelite S.A.S </p>
               </div>
             </div>
             <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
@@ -186,9 +201,12 @@ export default function Home() {
       </section>
 
       {/* 💰 TARIFAS */}
-      <PricingSection />
+      {/* En tu page.tsx principal */}
+      <section id="precios" className="scroll-mt-24">
+        <PricingSection />
+      </section>
 
-      {/* 🔥 CTA FINAL: Conversión Directa */}
+      {/* 🔥 CTA FINAL: WHATSAPP DIRECTO */}
       <section className="py-32 text-center px-6 bg-slate-900 relative overflow-hidden">
         <div className="max-w-4xl mx-auto relative z-10 space-y-10">
           <h2 className="text-fluid-h2 font-black text-white tracking-tighter">
@@ -197,10 +215,16 @@ export default function Home() {
           <p className="text-slate-400 text-xl max-w-2xl mx-auto leading-relaxed">
             Agenda una consultoría técnica hoy mismo. Analizaremos tu infraestructura y trazaremos la hoja de ruta para tu crecimiento exponencial.
           </p>
+
           <motion.a
-            whileHover={{ scale: 1.05, shadow: "0 20px 50px -10px rgba(40, 116, 166, 0.5)" }}
+            whileHover={{
+              scale: 1.05,
+              shadow: "0 20px 50px -10px rgba(40, 116, 166, 0.5)"
+            }}
             whileTap={{ scale: 0.95 }}
-            href="https://wa.me/tu-numero"
+            href={getWhatsAppLink("Hola Androdri S.A.S, necesito hablar con un experto sobre mis proyectos digitales.")}
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block bg-[#2874A6] text-white px-14 py-6 rounded-3xl text-xl font-extrabold transition-all duration-300"
           >
             Hablar con un Experto
@@ -212,26 +236,27 @@ export default function Home() {
   );
 }
 
-// Componente Interno para las Tarjetas de Servicio
-function ServiceCard({ icon, title, desc, impacto }: { icon: React.ReactNode, title: string, desc: string, impacto: string }) {
+function ServiceCard({ icon, title, desc, impacto, link }: { icon: React.ReactNode, title: string, desc: string, impacto: string, link: string }) {
   return (
-    <motion.div
-      whileHover={{ y: -10 }}
-      className="group p-10 bg-white rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/40 transition-all duration-300 hover:border-[#2874A6]/30 flex flex-col h-full"
-    >
-      <div className="mb-6 flex justify-between items-start">
-        <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-[#2874A6] group-hover:bg-[#2874A6] group-hover:text-white transition-all duration-500 transform group-hover:rotate-6">
-          {icon}
+    <a href={link} target="_blank" rel="noopener noreferrer">
+      <motion.div
+        whileHover={{ y: -10 }}
+        className="group p-10 bg-white rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/40 transition-all duration-300 hover:border-[#2874A6]/30 flex flex-col h-full cursor-pointer"
+      >
+        <div className="mb-6 flex justify-between items-start">
+          <div className="w-16 h-16 rounded-2xl bg-slate-50 flex items-center justify-center text-[#2874A6] group-hover:bg-[#2874A6] group-hover:text-white transition-all duration-500 transform group-hover:rotate-6">
+            {icon}
+          </div>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-[#2874A6] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
+            {impacto}
+          </span>
         </div>
-        <span className="text-[10px] font-bold uppercase tracking-widest text-[#2874A6] bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-          {impacto}
-        </span>
-      </div>
-      <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-4">{title}</h3>
-      <p className="text-slate-500 font-medium leading-relaxed text-sm grow">{desc}</p>
-      <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#2874A6] opacity-0 group-hover:opacity-100 transition-opacity">
-        Saber más <ArrowRight size={16} />
-      </div>
-    </motion.div>
+        <h3 className="text-2xl font-black text-slate-900 tracking-tight mb-4">{title}</h3>
+        <p className="text-slate-500 font-medium leading-relaxed text-sm grow">{desc}</p>
+        <div className="mt-8 flex items-center gap-2 text-sm font-bold text-[#2874A6] opacity-0 group-hover:opacity-100 transition-opacity">
+          Consultar por WhatsApp <ArrowRight size={16} />
+        </div>
+      </motion.div>
+    </a>
   );
 }

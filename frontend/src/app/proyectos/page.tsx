@@ -17,6 +17,12 @@ import {
 } from "lucide-react";
 
 export default function ProyectosPage() {
+    const WHATSAPP_NUMBER = "573224612382";
+
+  const getWhatsAppLink = (projectName: string) => {
+    const message = `Hola Androdri S.A.S, vi el proyecto de ${projectName} en su portafolio y me gustaría desarrollar algo similar para mi empresa.`;
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+  };
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -80,16 +86,16 @@ export default function ProyectosPage() {
             variants={itemVariants}
             className="lg:col-span-7 relative group"
           >
-            <div className="relative rounded-[3.5rem] bg-slate-100 p-2 overflow-hidden border border-slate-200">
-              <div className="bg-white rounded-[3rem] overflow-hidden aspect-[16/10] flex items-center justify-center p-12 relative">
-                <img 
-                  src="https://sisconelite.com/wp-content/uploads/2023/11/logo-siscon-elite.png" 
-                  alt="SisconElite" 
-                  className="w-72 md:w-96 object-contain z-10 transition-transform duration-700 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-              </div>
-            </div>
+           <div className="relative rounded-[3.5rem] bg-slate-100 p-2 overflow-hidden border border-slate-200">
+  <div className="bg-white rounded-[3rem] overflow-hidden aspect-[16/10] flex items-center justify-center p-12 relative">
+    <img 
+      src="/img/sisconelite.png" 
+      alt="SisconElite S.A.S" 
+      className="w-full h-full object-cover z-10 transition-transform duration-700 group-hover:scale-110"
+    />
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+  </div>
+</div>
             
             {/* Badge Flotante de Performance */}
             <motion.div 
@@ -202,7 +208,7 @@ export default function ProyectosPage() {
       {/* 🤙 CALL TO ACTION: BOLD & MINIMAL */}
       <section className="py-32 px-6">
         <div className="max-w-5xl mx-auto rounded-[4rem] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] bg-[#2874A6] p-12 md:p-24 text-center text-white relative overflow-hidden shadow-[0_40px_100px_-20px_rgba(40,116,166,0.4)]">
-          <motion.div 
+           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             className="relative z-10"
@@ -210,9 +216,14 @@ export default function ProyectosPage() {
             <h2 className="text-5xl md:text-7xl font-black mb-8 tracking-tighter">
               ¿Tu empresa es la <br /> <span className="underline decoration-white/30">próxima?</span>
             </h2>
-            <button className="bg-white text-[#2874A6] px-12 py-6 rounded-full font-black text-2xl hover:bg-slate-900 hover:text-white transition-all transform hover:scale-110 active:scale-95 shadow-2xl shadow-black/20">
+            <a 
+              href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent("Hola Androdri S.A.S, me gustaría agendar una cita técnica para iniciar un proyecto de alto impacto.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block bg-white text-[#2874A6] px-12 py-6 rounded-full font-black text-2xl hover:bg-slate-900 hover:text-white transition-all transform hover:scale-110 active:scale-95 shadow-2xl"
+            >
               AGENDA UNA CITA TÉCNICA
-            </button>
+            </a>
           </motion.div>
           {/* Círculos decorativos */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-32 translate-x-32" />
