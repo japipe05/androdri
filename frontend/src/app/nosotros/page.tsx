@@ -10,11 +10,20 @@ export default function Nosotros() {
         transition={{ duration: 0.8, ease: "easeOut" }}
         className="max-w-5xl w-full space-y-12"
       >
+            <section>
+          <h2 className="text-3xl md:text-4xl font-bold text-[#2874A6] mb-4">Slogan</h2>
+         
+          <p>
+          Transformamos ideas en tecnología que impulsa negocios.
+          </p>
+        </section>
+
         <section>
           <h2 className="text-3xl md:text-4xl font-bold text-[#2874A6] mb-4">Misión</h2>
           <p className="text-base sm:text-lg leading-relaxed text-[var(--color-foreground)]/90">
             En ANDRODRI S.A.S., nos comprometemos a desarrollar e implementar soluciones tecnológicas innovadoras y de alto impacto, adaptadas a las necesidades de nuestros clientes. A través del diseño de software a la medida, la integración de inteligencia artificial y la optimización de procesos digitales, buscamos impulsar la transformación digital en diversas industrias. Nuestra prioridad es ofrecer productos y servicios eficientes, seguros y escalables, que generen valor y contribuyan al crecimiento sostenible de nuestros clientes y aliados estratégicos.
           </p>
+          
         </section>
 
         <section>

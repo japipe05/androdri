@@ -1,27 +1,116 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --accent: #2874A6;
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-accent: var(--accent);
-
-  --font-sans: var(--font-inter); /* ✅ Inter como principal */
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+    /* --- COLORES MODO CLARO --- */
+    --background: #ffffff;
+    --foreground: #171717;
+    --accent: #2874A6;
+    --titles: #2874A6; /* Títulos en Azul en modo claro */
+    --border-color: #e2e8f0; /* Color de borde para modo claro */
+    
+    /* --- TIPOGRAFÍA FLUIDA --- */
+    /* clamp(mínimo, valor_ideal, máximo) */
+    --font-size-base: clamp(1rem, 0.9rem + 0.25vw, 1.125rem); /* Cuerpo */
+    --font-size-h1: clamp(2.5rem, 5vw + 1rem, 5rem);         /* Títulos Hero */
+    --font-size-h2: clamp(2rem, 3.5vw + 1rem, 3.5rem);       /* Títulos Secciones */
+    --font-size-h3: clamp(1.5rem, 2vw + 1rem, 2.25rem);      /* Tarjetas */
 
-body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans, Arial, Helvetica, sans-serif);
+    /* Fuentes configuradas en el Layout */
+    --font-sans: var(--font-ubuntu), ui-sans-serif, system-ui;
+    --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular;
+  }
+
+  /* El selector [data-theme='dark'] es más fiable si usas un switch, 
+     pero mantengo media query para detección automática */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      /* --- COLORES MODO OSCURO (NEGRO PURO) --- */
+      --background: #000000; 
+      --foreground: #ededed;
+      --titles: #ffffff;      /* Títulos en Blanco en modo oscuro */
+      --accent: #2874A6;      /* El azul se mantiene como acento corporativo */
+      --border-color: #27272a; /* Borde sutil para modo oscuro */
+    }
+  }
+
+  * {
+    /* Corregido: Usamos la variable directa en lugar de @apply border-border */
+    border-color: var(--border-color);
+  }
+
+  html {
+    /* Corregido: Propiedad estándar para scroll suave */
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    transition: background-color 0.4s ease, color 0.4s ease; /* Cambio suave de tema */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* --- ESTILOS DE TÍTULOS CON IMPACTO --- */
+  h1 {
+    font-size: var(--font-size-h1);
+    color: var(--titles);
+    @apply font-black tracking-tighter leading-[0.9] mb-6;
+  }
+
+  h2 {
+    font-size: var(--font-size-h2);
+    color: var(--titles);
+    @apply font-bold tracking-tight leading-[1.1] mb-8;
+  }
+
+  h3 {
+    font-size: var(--font-size-h3);
+    color: var(--titles);
+    @apply font-bold tracking-tight mb-4;
+  }
+
+  /* --- UTILIDADES "AWESOME" PARA CAPTAR CLIENTES --- */
+  
+  /* Efecto de brillo sutil para resaltar textos clave */
+  .text-glow {
+    text-shadow: 0 0 25px rgba(40, 116, 166, 0.3);
+  }
+
+  /* Tarjetas con efecto de cristal (Glassmorphism) optimizado */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    @apply rounded-[2.5rem] p-10 transition-all duration-500;
+  }
+
+  .glass-card:hover {
+    background: rgba(40, 116, 166, 0.04);
+    border-color: var(--accent);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Botones de alta conversión (Call to Action) */
+  .btn-primary {
+    background-color: var(--accent);
+    color: white;
+    @apply px-10 py-5 rounded-2xl font-black uppercase tracking-widest transition-all shadow-xl;
+  }
+
+  .btn-primary:hover {
+    @apply scale-105 shadow-blue-500/30;
+    filter: brightness(1.1);
+  }
+
+  /* Clase para secciones con fondo degradado suave */
+  .section-gradient {
+    background: radial-gradient(circle at center, var(--background) 0%, rgba(40, 116, 166, 0.03) 100%);
+  }
 }

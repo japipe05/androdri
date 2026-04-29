@@ -24,6 +24,17 @@ https://sketchfab.com/3d-models/cute-robot-companion-glb-0f64197efce74fba8145b94
 ```bash
 docker build -t japipe05/androdri-frontend:1.0.0-prod .
 
+docker build `
+  --build-arg NEXT_PUBLIC_WHATSAPP_NUMBER="573224612382" `
+  --build-arg NEXT_PUBLIC_MAILCOPORATIVO="servicios@androdri.com" `
+  --build-arg NEXT_PUBLIC_FACEBOOK="https://www.facebook.com/profile.php?id=61588715758897" `
+  --build-arg NEXT_PUBLIC_INSTAGRAM="https://www.instagram.com/androdrisas/" `
+  --build-arg NEXT_PUBLIC_LINKEDIN="https://www.linkedin.com/in/androdri-s-a-s-arquitectura-de-activos-digitales-de-%C3%A9lite-132a9b405/" `
+  --build-arg NEXT_PUBLIC_TIKTOK="https://www.tiktok.com/@androdri_" `
+  --build-arg NEXT_PUBLIC_YOUTUBE="https://www.youtube.com/@androdri05" `
+  -t japipe05/androdri-frontend:1.0.0-prod .
+
+  
 docker push japipe05/androdri-frontend:1.0.0-prod
 ```
 
@@ -75,4 +86,6 @@ docker run -d `
 
 
 
-  
+  npm audit fix
+  npm install next@15.5.15
+  > npm run dev -- -p 7001  

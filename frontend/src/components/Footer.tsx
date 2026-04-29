@@ -3,69 +3,193 @@
 import Link from "next/link";
 import {
   Facebook,
-  Youtube,
   Instagram,
-  Twitter,
-  Music,
-} from "lucide-react"; // TikTok reemplazado con Music genéricamente
+  Linkedin,
+  ShieldCheck,
+  Lock,
+  Globe,
+  Mail,
+  
+  MessageCircle,
+  ChevronRight,
+  Youtube
+} from "lucide-react";
+
+// Constantes centralizadas
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573224612382";
+const EMAIL = process.env.NEXT_PUBLIC_MAILCOPORATIVO || "#";
+const FACEBOOK_URL = process.env.NEXT_PUBLIC_FACEBOOK || "#";
+const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM || "#";
+const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN || "#";
+const TIKTOK_URL = process.env.NEXT_PUBLIC_TIKTOK || "#";
+const YOUTUBE_URL = process.env.NEXT_PUBLIC_YOUTUBE || "#";
+
+const TikTokIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+  </svg>
+);
+
+const FOOTER_LINKS = {
+  empresa: [
+    { name: "Inicio", href: "/" },
+    { name: "Servicios", href: "/servicios" },
+    { name: "Proyectos", href: "/proyectos" },
+    { name: "Contacto", href: "/contacto" },
+  ],
+  legal: [
+    { name: "Política de Privacidad", href: "/politica-privacidad", icon: <ShieldCheck size={16} /> },
+    { name: "Términos de Servicio", href: "/terminos", icon: <Globe size={16} /> },
+  ]
+};
 
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="w-full mt-16 border-t border-gray-300 bg-[var(--color-background)] text-[var(--color-foreground)] py-8">
-      <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-6">
-        {/* Logo o nombre */}
-        <h2 className="text-xl font-semibold text-[#2874A6]">
-          Androdri S.A.S
-        </h2>
+    <footer className="relative w-full mt-24 bg-slate-950 text-white pt-20 pb-8 border-t border-white/5 overflow-hidden">
+      {/* 🌌 EFECTO DE FONDO (Radial Glow) */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-[#2874A6]/5 blur-[120px] rounded-full pointer-events-none" />
 
-          {/* Redes sociales */}
-        <nav className="flex gap-4">
-          <Link
-            href="https://facebook.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#2874A6] transition-colors"
-          >
-            <Facebook size={20} />
-          </Link>
-          <Link
-            href="https://youtube.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#2874A6] transition-colors"
-          >
-            <Youtube size={20} />
-          </Link>
-          <Link
-            href="https://tiktok.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#2874A6] transition-colors"
-          >
-            <Music size={20} /> {/* TikTok (no disponible directamente) */}
-          </Link>
-          <Link
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#2874A6] transition-colors"
-          >
-            <Instagram size={20} />
-          </Link>
-          <Link
-            href="https://twitter.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hover:text-[#2874A6] transition-colors"
-          >
-            <Twitter size={20} />
-          </Link>
-        </nav>
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
+          
+          {/* COLUMNA 1: BRANDING & MISSION */}
+          <div className="space-y-8">
+            <div className="space-y-4">
+              <h2 className="text-2xl font-black tracking-tighter">
+                ANDRODRI<span className="text-[#2874A6]"> S.A.S</span>
+              </h2>
+              <p className="text-slate-400 text-sm leading-relaxed font-medium">
+                Arquitectura de software de alto impacto y soluciones de ciberseguridad diseñadas para la escala global.
+              </p>
+            </div>
+            
+            <div className="flex gap-3">
+  {[
+    { icon: <Facebook size={18} />, href: FACEBOOK_URL },
+    { icon: <Instagram size={18} />, href: INSTAGRAM_URL },
+    { icon: <TikTokIcon />, href: TIKTOK_URL },
+    { icon: <Linkedin size={18} />, href: LINKEDIN_URL },
+    { icon: <Youtube size={18} />, href: YOUTUBE_URL },
+    // Si quieres agregar YouTube, solo añade una línea más aquí:
+    // { icon: <Youtube size={18} />, href: YOUTUBE_URL }
+  ].map((social, i) => (
+    <Link 
+      key={i} 
+      href={social.href} 
+      target="_blank" // Recomendado para enlaces externos
+      rel="noopener noreferrer" // Seguridad adicional
+      className="p-2.5 bg-white/5 rounded-xl hover:bg-[#2874A6] hover:shadow-[0_0_15px_rgba(40,116,166,0.4)] transition-all text-slate-400 hover:text-white border border-white/5"
+    >
+      {social.icon}
+    </Link>
+  ))}
+</div>
+          </div>
 
-        {/* Derechos */}
-        <p className="text-xs text-[var(--color-foreground)]/70">
-          © {new Date().getFullYear()} Androdri S.A.S. Todos los derechos reservados. 2025/07/06 19:05
-        </p>
+          {/* COLUMNA 2: NAVEGACIÓN INTELIGENTE */}
+          <div className="space-y-8">
+            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[#2874A6]">Explorar</h3>
+            <ul className="space-y-4">
+              {FOOTER_LINKS.empresa.map((link) => (
+                <li key={link.name}>
+                  <Link 
+                    href={link.href} 
+                    className="group flex items-center gap-2 text-sm font-bold text-slate-400 hover:text-white transition-all"
+                  >
+                    <ChevronRight size={14} className="text-[#2874A6] opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all" />
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* COLUMNA 3: COMPLIANCE & TRUST */}
+          <div className="space-y-8">
+            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[#2874A6]">Compliance</h3>
+            <div className="space-y-6">
+              <ul className="space-y-4">
+                {FOOTER_LINKS.legal.map((link) => (
+                  <li key={link.name}>
+                    <Link href={link.href} className="flex items-center gap-3 text-sm font-bold text-slate-400 hover:text-white transition-colors">
+                      <span className="text-[#2874A6]">{link.icon}</span>
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="p-4 bg-gradient-to-br from-white/5 to-transparent rounded-2xl border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-3 mb-2">
+                  <Lock size={18} className="text-[#2874A6]" />
+                  <span className="text-[11px] font-black uppercase tracking-widest text-blue-400">Security Grade</span>
+                </div>
+                <p className="text-[13px] text-white font-bold">ISO/IEC 27001 Certified</p>
+              </div>
+            </div>
+          </div>
+
+          {/* COLUMNA 4: CANALES DIRECTOS */}
+          <div className="space-y-8">
+            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-[#2874A6]">Soporte Élite</h3>
+            <div className="space-y-4">
+              <a href={`mailto:${EMAIL}`} className="flex items-center gap-4 group">
+                <div className="p-2.5 bg-white/5 rounded-xl group-hover:bg-[#2874A6] transition-all border border-white/5">
+                  <Mail size={18} className="text-slate-400 group-hover:text-white" />
+                </div>
+                <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">{EMAIL}</span>
+              </a>
+              
+              <a href={`https://wa.me/${WHATSAPP_NUMBER}`} className="flex items-center gap-4 group">
+                <div className="p-2.5 bg-white/5 rounded-xl group-hover:bg-green-500 transition-all border border-white/5">
+                  <MessageCircle size={18} className="text-slate-400 group-hover:text-white" />
+                </div>
+                <span className="text-sm font-bold text-slate-300 group-hover:text-white transition-colors">WhatsApp Directo</span>
+              </a>
+
+              <div className="pt-4">
+                <button className="group relative w-full py-4 bg-slate-900 border border-white/10 rounded-2xl text-[10px] font-black tracking-[0.2em] hover:border-[#2874A6]/50 transition-all overflow-hidden">
+                  <div className="relative z-10 flex items-center justify-center gap-2">
+                    ESTADO DEL SERVICIO 
+                    <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_#22c55e]" />
+                  </div>
+                  <div className="absolute inset-0 bg-[#2874A6]/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* ⚡ BOTTOM BAR: FINAL TOUCH */}
+        <div className="pt-10 border-t border-white/5 flex flex-col lg:flex-row justify-between items-center gap-8">
+          <div className="flex flex-col items-center lg:items-start gap-2">
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
+              © {currentYear} <span className="text-slate-300">Androdri S.A.S.</span>
+            </p>
+            <p className="text-[9px] text-slate-600 font-bold uppercase tracking-widest">
+              Bogotá, Colombia • All Rights Reserved
+            </p>
+          </div>
+
+          <div className="flex flex-wrap justify-center items-center gap-8 py-4 px-8 bg-white/[0.02] rounded-3xl border border-white/5 backdrop-blur-md">
+             <div className="flex items-center gap-4 opacity-40 hover:opacity-100 transition-opacity">
+                <ShieldCheck size={20} className="text-[#2874A6]" />
+                <div className="flex flex-col leading-none">
+                  <span className="text-[8px] font-black text-slate-500 uppercase tracking-tighter">Infraestructura</span>
+                  <span className="text-[10px] font-black text-white italic">SECURE_CORE 2.0</span>
+                </div>
+             </div>
+             <div className="h-8 w-px bg-white/10 hidden sm:block"></div>
+             <div className="text-[10px] font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                <div className="w-1.5 h-1.5 bg-[#2874A6] rounded-full" />
+                Ingeniería de Software de Élite
+             </div>
+          </div>
+        </div>
+
       </div>
     </footer>
   );

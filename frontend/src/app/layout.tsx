@@ -1,38 +1,43 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import { Geist_Mono } from "next/font/google";
-
+import { headers } from "next/headers";
+import type { Viewport } from "next";
 import "./globals.css";
+import { fonts } from "@/infrastructure/fonts"; 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { WhatsAppButton } from "@/components/WhatsAppButton";
-// ✅ Inter como fuente principal
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
+import WhatsAppButton from "@/components/WhatsAppButton";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { mainMetadata as metadata } from "@/infrastructure/seo.config";
 
-const geistMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-geist-mono",
-});
-
-export const metadata: Metadata = {
-  title: "Androdri",
-  description: "apps web y móviles, pasarelas de pago, inteligencia artificial, dashboards, firma digital, ecommerce, domótica y consultoría tecnológica.",
-  icons: {
-    icon: "/vercel.svg",
-  },
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
+  width: "device-width",
+  initialScale: 1,
 };
 
-export default function RootLayout({
+export { metadata };
+
+// 1. La función debe ser 'async' para consumir los headers en el servidor
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+  // 2. Extraemos el nonce que generamos en el middleware
+  // En Next.js 15, headers() devuelve una promesa
+  const headerList = await headers();
+  const nonce = headerList.get("x-nonce") || "";
+
   return (
-    <html lang="es">
-      <body className={`${inter.variable} ${geistMono.variable} antialiased`}>
+    <html lang="es" className="scroll-smooth">
+      <head>
+        {/* 3. Pasamos el nonce al componente para autorizar el script SEO */}
+        <JsonLd nonce={nonce} />
+      </head>
+      <body className={`${fonts.ubuntu.variable} ${fonts.geist.variable} font-sans antialiased bg-[var(--background)] text-[var(--foreground)]`}>
         <Navbar />
         {children}
         <WhatsAppButton />
