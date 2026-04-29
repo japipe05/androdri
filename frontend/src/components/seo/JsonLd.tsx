@@ -1,4 +1,8 @@
-export function JsonLd() {
+// Definimos la interfaz para que TypeScript sepa que aceptamos 'nonce'
+interface JsonLdProps {
+  nonce?: string;
+}
+export function JsonLd({ nonce }: JsonLdProps) { //
   const data = {
     "@context": "https://schema.org",
     "@type": "SoftwareHouse", // 👈 Más específico para SEO tecnológico
@@ -65,6 +69,7 @@ export function JsonLd() {
     <script
       id="organization-jsonld" // 👈 Agregar un ID ayuda a la depuración
       type="application/ld+json"
+      nonce={nonce}
       dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
     />
   );

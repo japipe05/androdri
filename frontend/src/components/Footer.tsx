@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   Facebook,
   Instagram,
@@ -10,14 +9,20 @@ import {
   Lock,
   Globe,
   Mail,
-  ExternalLink,
+  
   MessageCircle,
-  ChevronRight
+  ChevronRight,
+  Youtube
 } from "lucide-react";
 
 // Constantes centralizadas
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573224612382";
-const EMAIL = "servicios@androdri.com";
+const EMAIL = process.env.NEXT_PUBLIC_MAILCOPORATIVO || "#";
+const FACEBOOK_URL = process.env.NEXT_PUBLIC_FACEBOOK || "#";
+const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM || "#";
+const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN || "#";
+const TIKTOK_URL = process.env.NEXT_PUBLIC_TIKTOK || "#";
+const YOUTUBE_URL = process.env.NEXT_PUBLIC_YOUTUBE || "#";
 
 const TikTokIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
@@ -62,21 +67,26 @@ export default function Footer() {
             </div>
             
             <div className="flex gap-3">
-              {[
-                { icon: <Facebook size={18} />, href: "#" },
-                { icon: <Instagram size={18} />, href: "#" },
-                { icon: <TikTokIcon />, href: "#" },
-                { icon: <Linkedin size={18} />, href: "#" }
-              ].map((social, i) => (
-                <Link 
-                  key={i} 
-                  href={social.href} 
-                  className="p-2.5 bg-white/5 rounded-xl hover:bg-[#2874A6] hover:shadow-[0_0_15px_rgba(40,116,166,0.4)] transition-all text-slate-400 hover:text-white border border-white/5"
-                >
-                  {social.icon}
-                </Link>
-              ))}
-            </div>
+  {[
+    { icon: <Facebook size={18} />, href: FACEBOOK_URL },
+    { icon: <Instagram size={18} />, href: INSTAGRAM_URL },
+    { icon: <TikTokIcon />, href: TIKTOK_URL },
+    { icon: <Linkedin size={18} />, href: LINKEDIN_URL },
+    { icon: <Youtube size={18} />, href: YOUTUBE_URL },
+    // Si quieres agregar YouTube, solo añade una línea más aquí:
+    // { icon: <Youtube size={18} />, href: YOUTUBE_URL }
+  ].map((social, i) => (
+    <Link 
+      key={i} 
+      href={social.href} 
+      target="_blank" // Recomendado para enlaces externos
+      rel="noopener noreferrer" // Seguridad adicional
+      className="p-2.5 bg-white/5 rounded-xl hover:bg-[#2874A6] hover:shadow-[0_0_15px_rgba(40,116,166,0.4)] transition-all text-slate-400 hover:text-white border border-white/5"
+    >
+      {social.icon}
+    </Link>
+  ))}
+</div>
           </div>
 
           {/* COLUMNA 2: NAVEGACIÓN INTELIGENTE */}

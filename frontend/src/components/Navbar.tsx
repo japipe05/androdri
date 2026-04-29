@@ -17,10 +17,27 @@ import {
 
 // Extraemos las constantes para fácil mantenimiento
 const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "573224612382";
-const EMAIL = "servicios@androdri.com";
+const EMAIL = process.env.NEXT_PUBLIC_MAILCOPORATIVO || "#";
+const FACEBOOK_URL = process.env.NEXT_PUBLIC_FACEBOOK || "#";
+const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM || "#";
+const LINKEDIN_URL = process.env.NEXT_PUBLIC_LINKEDIN || "#";
+const TIKTOK_URL = process.env.NEXT_PUBLIC_TIKTOK || "#";
+const YOUTUBE_URL = process.env.NEXT_PUBLIC_YOUTUBE || "#";
 
-const TikTokIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
+
+type IconProps = React.SVGProps<SVGSVGElement>;
+
+const TikTokIcon = ({ className, ...props }: IconProps) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className}
+    {...props}
+  >
     <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
   </svg>
 );
@@ -38,7 +55,7 @@ const Navbar = () => {
       {/* 🌌 TOP BAR */}
       <div className="bg-gradient-to-r from-slate-900 via-[#0a0f1a] to-slate-900 text-white py-2.5 px-6 hidden md:block border-b border-white/5">
         <div className="container mx-auto flex justify-center items-center gap-12">
-          
+
           <div className="flex items-center justify-center gap-12 border-r border-white/20 pr-12">
             {/* EMAIL */}
             <a href={`mailto:${EMAIL}`} className="group flex items-center gap-4 text-[14px] font-black tracking-normal text-white transition-all">
@@ -69,10 +86,59 @@ const Navbar = () => {
               <Zap className="w-3 h-3 fill-current" /> Connect
             </span>
             <div className="flex gap-4">
-              <a href="#" aria-label="Facebook" className={socialIconStyle}><Facebook className="w-4 h-4" /></a>
-              <a href="#" aria-label="Instagram" className={socialIconStyle}><Instagram className="w-4 h-4" /></a>
-              <a href="#" aria-label="TikTok" className={socialIconStyle}><TikTokIcon /></a>
-              <a href="#" aria-label="LinkedIn" className={socialIconStyle}><Linkedin className="w-4 h-4" /></a>
+              <a
+                href={FACEBOOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className={socialIconStyle}
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className={socialIconStyle}
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              
+              
+               <a
+                href={TIKTOK_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok"
+                className={socialIconStyle}
+              >
+                <TikTokIcon className="w-4 h-4" />
+              </a>
+
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className={socialIconStyle}
+              >
+                <Linkedin className="w-4 h-4" />
+              </a>
+
+               <a
+                href={YOUTUBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Youtube"
+                className={socialIconStyle}
+              >
+                <Youtube className="w-4 h-4" />
+              </a>
+
+
+
+              
             </div>
           </div>
         </div>
@@ -112,7 +178,7 @@ const Navbar = () => {
         {/* MOBILE MENU CON ANIMACIÓN */}
         <AnimatePresence>
           {isOpen && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
