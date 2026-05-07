@@ -104,9 +104,9 @@ const Navbar = () => {
               >
                 <Instagram className="w-4 h-4" />
               </a>
-              
-              
-               <a
+
+
+              <a
                 href={TIKTOK_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -126,7 +126,7 @@ const Navbar = () => {
                 <Linkedin className="w-4 h-4" />
               </a>
 
-               <a
+              <a
                 href={YOUTUBE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -138,7 +138,7 @@ const Navbar = () => {
 
 
 
-              
+
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@ const Navbar = () => {
 
           {/* DESKTOP MENU */}
           <ul className="hidden md:flex gap-8 text-[12px] font-black items-center text-slate-600 uppercase tracking-widest">
-            {["Inicio", "Servicios", "Proyectos", "Precios", "Contacto"].map((item) => (
+            {["Inicio", "Servicios", "Proyectos", "Precios", "Nosotros", "Contacto"].map((item) => (
               <li key={item}>
                 <Link className={navLinkStyle} href={item === "Inicio" ? "/" : `/${item.toLowerCase().replace("precios", "#precios")}`}>
                   {item}
@@ -184,15 +184,78 @@ const Navbar = () => {
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden overflow-hidden bg-white"
             >
-              <ul className="flex flex-col gap-6 py-8 text-lg font-black text-slate-900 uppercase tracking-tighter">
-                {["Inicio", "Servicios", "Proyectos", "Precios", "Contacto"].map((item) => (
-                  <li key={item} className="px-4">
-                    <Link onClick={() => setIsOpen(false)} href={item === "Inicio" ? "/" : `/${item.toLowerCase()}`}>
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <div className="py-8">
+                <ul className="flex flex-col gap-6 text-lg font-black text-slate-900 uppercase tracking-tighter">
+                  {["Inicio", "Servicios", "Proyectos", "Precios", "Nosotros", "Contacto"].map((item) => (
+                    <li key={item} className="px-4">
+                      <Link
+                        onClick={() => setIsOpen(false)}
+                        href={item === "Inicio" ? "/" : `/${item.toLowerCase()}`}
+                      >
+                        {item}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* REDES SOCIALES MOBILE */}
+                <div className="mt-10 border-t border-slate-200 pt-6 px-4">
+                  <div className="flex items-center justify-center gap-6">
+
+                    <a
+                      href={FACEBOOK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Facebook"
+                      className={socialIconStyle}
+                    >
+                      <Facebook className="w-5 h-5 text-slate-700 hover:text-[#2874A6]" />
+                    </a>
+
+                    <a
+                      href={INSTAGRAM_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram"
+                      className={socialIconStyle}
+                    >
+                      <Instagram className="w-5 h-5 text-slate-700 hover:text-[#2874A6]" />
+                    </a>
+
+                    <a
+                      href={TIKTOK_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="TikTok"
+                      className={socialIconStyle}
+                    >
+                      <TikTokIcon className="w-5 h-5 text-slate-700 hover:text-[#2874A6]" />
+                    </a>
+
+                    <a
+                      href={LINKEDIN_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn"
+                      className={socialIconStyle}
+                    >
+                      <Linkedin className="w-5 h-5 text-slate-700 hover:text-[#2874A6]" />
+                    </a>
+
+                    <a
+                      href={YOUTUBE_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Youtube"
+                      className={socialIconStyle}
+                    >
+                      <Youtube className="w-5 h-5 text-slate-700 hover:text-[#2874A6]" />
+                    </a>
+                  </div>
+
+
+                </div>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
