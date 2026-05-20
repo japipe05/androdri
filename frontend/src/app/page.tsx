@@ -62,8 +62,8 @@ export default function Home() {
 
             <div className="space-y-6">
               <p className="text-fluid-body text-slate-500 max-w-lg leading-relaxed font-medium border-l-4 border-[#2874A6] pl-6">
-                Diseñamos el futuro de tu infraestructura. En <span className="text-slate-900 font-bold">Androdri S.A.S</span>
-                integramos <span className="text-slate-900 font-bold underline decoration-[#2874A6]">Inteligencia Artificial</span>
+                Diseñamos el futuro de tu infraestructura. En <span className="text-slate-900 font-bold">Androdri S.A.S. </span>
+                integramos <span className="text-slate-900 font-bold underline decoration-[#2874A6]">Inteligencia Artificial. </span>
                 para que tu empresa nunca deje de <span className="text-[#2874A6] font-extrabold"> evolucionar.</span>
               </p>
 
