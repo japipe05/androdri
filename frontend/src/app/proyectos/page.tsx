@@ -70,7 +70,7 @@ export default function ProyectosPage() {
         </div>
       </section>
 
-      {/* 🚀 CASE STUDY: SISCON ELITE (The "Awesome" Card) */}
+      {/* 🚀 CASE STUDY: Androdri (The "Awesome" Card) */}
       <section className="py-12 px-6 max-w-7xl mx-auto">
         <motion.div 
           initial="hidden"
@@ -88,7 +88,7 @@ export default function ProyectosPage() {
   <div className="bg-white rounded-[3rem] overflow-hidden aspect-[16/10] flex items-center justify-center p-12 relative">
    <Image 
   src="/img/sisconelite.png"
-  alt="SisconElite S.A.S"
+  alt="Androdri S.A.S"
   fill
   className="object-cover z-10 transition-transform duration-700 group-hover:scale-110"
 />
@@ -111,7 +111,7 @@ export default function ProyectosPage() {
           {/* Lado Contenido - Ocupa 5 columnas */}
           <motion.div variants={itemVariants} className="lg:col-span-5 flex flex-col justify-center space-y-8">
             <div className="space-y-4">
-              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">SisconElite S.A.S</h2>
+              <h2 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">Androdri S.A.S</h2>
               <p className="inline-block px-4 py-1 rounded-lg bg-green-50 text-green-700 font-bold text-sm">Case Study: FinTech & ERP</p>
              <p className="text-slate-600 text-lg leading-relaxed">
   Reinventamos la arquitectura de datos para soportar millones de transacciones contables. Una solución <strong>rápida, segura y visualmente impecable</strong> que redefine la consultoría tributaria.
@@ -133,7 +133,7 @@ export default function ProyectosPage() {
 
             <div className="pt-4">
               <a 
-                href="https://sisconelite.com/" 
+                href="https://Androdri.com/" 
                 target="_blank"
                 className="group inline-flex items-center gap-4 bg-[#2874A6] text-white pl-8 pr-2 py-2 rounded-full font-bold text-lg hover:bg-slate-900 transition-all shadow-xl shadow-blue-100"
               >

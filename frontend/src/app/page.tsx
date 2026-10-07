@@ -192,7 +192,7 @@ export default function Home() {
               </p>
               <div className="flex items-center gap-4">
                 <div className="h-1 w-10 bg-blue-300"></div>
-                <p className="font-bold tracking-widest uppercase text-xs">Sisconelite S.A.S </p>
+                <p className="font-bold tracking-widest uppercase text-xs">Androdri S.A.S </p>
               </div>
             </div>
             <div className="absolute top-[-20%] right-[-10%] w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
