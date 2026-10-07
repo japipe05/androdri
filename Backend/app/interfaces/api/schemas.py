@@ -6,7 +6,7 @@ class SendEmailRequest(BaseModel):
 
     receptor: EmailStr = Field(default="feliperodriguez96@hotmail.com",description="Correo del destinatario")
     emisor: EmailStr = Field(default="felipehuchija@gmail.com",description="Correo remitente (verificado en SES)")
-    asunto: str = Field(default="Contactanos",min_length=1, max_length=150, description="Asunto (se añade emoji 📧)")
+    asunto: str = Field(default="Asunto descripcion",min_length=1, max_length=150, description="Asunto (se añade emoji 📧)")
     mensaje: str = Field(default="Solicito mas infromacion sobre la pagina web y una sesion",min_length=1, max_length=5000, description="Mensaje; admite emojis 😀")
 
     @field_validator("asunto")

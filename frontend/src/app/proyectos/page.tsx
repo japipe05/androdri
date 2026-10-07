@@ -87,7 +87,7 @@ export default function ProyectosPage() {
            <div className="relative rounded-[3.5rem] bg-slate-100 p-2 overflow-hidden border border-slate-200">
   <div className="bg-white rounded-[3rem] overflow-hidden aspect-[16/10] flex items-center justify-center p-12 relative">
    <Image 
-  src="/img/Androdri.png"
+  src="/img/sisconelite.png"
   alt="Androdri S.A.S"
   fill
   className="object-cover z-10 transition-transform duration-700 group-hover:scale-110"

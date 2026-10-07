@@ -30,7 +30,7 @@ _HTML_TEMPLATE = Template(
         </tr>
         <tr>
           <td style="padding:16px 28px;background:#fafbfc;color:#777777;font-size:13px;text-align:center;">
-            🚀 Enviado con 💙 desde $brand
+            🚀 Enviado con 💙 desde $brand Contactanos
           </td>
         </tr>
       </table>
@@ -56,5 +56,5 @@ class HtmlEmailRenderer:
             message=escape(message).replace("\n", "<br>"),
             brand=escape(self._brand),
         )
-        text = f"✨ {email.asunto}\n\n💬 {message}\n\n🚀 Enviado con 💙 desde {self._brand}"
-        return RenderedEmail(subject=f"📧 {email.asunto}", html=html, text=text)
+        text = f"✨ {email.asunto}\n\n💬 {message}\n\n🚀 Enviado con 💙 desde {self._brand} Contactanos"
+        return RenderedEmail(subject=f"📬 Contactanos: {email.asunto}", html=html, text=text)

@@ -1,18 +1,22 @@
+
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const nonce = Buffer.from(crypto.randomUUID()).toString("base64");
+
   const isDev = process.env.NODE_ENV === "development";
-  
+
   const scriptSrc = [
     "'self'",
     `'nonce-${nonce}'`,
     "'strict-dynamic'",
     "https://www.googletagmanager.com",
     "https://www.google-analytics.com",
-    isDev ? "'unsafe-eval' 'unsafe-inline'" : "", 
-  ].filter(Boolean).join(" ");
+    isDev ? "'unsafe-eval' 'unsafe-inline'" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const connectSrc = [
     "'self'",
@@ -24,9 +28,11 @@ export function middleware(request: NextRequest) {
     "https://cdn.jsdelivr.net",
     "https://raw.githack.com",
     "https://cloudflare-ipfs.com",
-    "https://raw.githubusercontent.com", // <--- AGREGADO PARA EL ARCHIVO .HDR
-    isDev ? "ws://localhost:3000 http://localhost:3000" : "", 
-  ].filter(Boolean).join(" ");
+    "https://raw.githubusercontent.com",
+    isDev ? "ws://localhost:3000 http://localhost:3000" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   const imgOrSceneSrc = [
     "'self'",
@@ -37,7 +43,7 @@ export function middleware(request: NextRequest) {
     "https:",
     "https://cdn.jsdelivr.net",
     "https://cloudflare-ipfs.com",
-    "https://raw.githubusercontent.com", // <--- TAMBIÉN PARA TEXTURAS
+    "https://raw.githubusercontent.com",
   ].join(" ");
 
   const cspHeader = `
@@ -53,20 +59,28 @@ export function middleware(request: NextRequest) {
     base-uri 'self';
     form-action 'self';
     ${isDev ? "" : "upgrade-insecure-requests;"}
-  `.replace(/\s{2,}/g, " ").trim();
+  `
+    .replace(/\s{2,}/g, " ")
+    .trim();
 
   const requestHeaders = new Headers(request.headers);
+
   requestHeaders.set("x-nonce", nonce);
   requestHeaders.set("Content-Security-Policy", cspHeader);
 
   const response = NextResponse.next({
-    request: { headers: requestHeaders },
+    request: {
+      headers: requestHeaders,
+    },
   });
 
   response.headers.set("Content-Security-Policy", cspHeader);
   response.headers.set("X-Content-Type-Options", "nosniff");
   response.headers.set("X-Frame-Options", "DENY");
-  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set(
+    "Referrer-Policy",
+    "strict-origin-when-cross-origin"
+  );
 
   return response;
 }

@@ -2,6 +2,10 @@
 ## 🐳 Despliegue con Docker Desarrollo masivo
 
 ```bash
+
+.\deploy-backend.bat
+
+
 # Construye todas las imágenes
 docker compose build
 

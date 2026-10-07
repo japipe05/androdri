@@ -9,7 +9,7 @@ def make_email(**kw) -> Email:
 
 def test_subject_and_body_have_emojis_and_html():
     rendered = HtmlEmailRenderer("Androdri").render(make_email())
-    assert rendered.subject.startswith("📧")
+    assert rendered.subject.startswith("📬")
     assert "<html" in rendered.html and "📬" in rendered.html and "💬" in rendered.html
     assert "✨" in rendered.text
 

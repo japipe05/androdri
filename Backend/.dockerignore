@@ -1,0 +1,50 @@
+
+# Entornos virtuales de Python
+.venv/
+venv/
+env/
+
+# Caché y archivos compilados de Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Pruebas y cobertura
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+tests/html/
+*.cover
+
+# Configuración y secretos
+.env
+.env.*
+!.env.example
+
+# Control de versiones
+.git/
+.gitignore
+
+# Archivos del editor
+.vscode/
+.idea/
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Dependencias locales
+site-packages/
+
+# Documentación y archivos auxiliares
+*.log
+*.tmp
+*.bak
+
+# Documentación del proyecto (opcional)
+# README.md
+
+# Archivos de frontend, si están fuera del backend
+# frontend/

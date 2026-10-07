@@ -16,6 +16,7 @@ router = APIRouter(prefix="/api/v1/emails", tags=["Emails"])
     "/send",
     response_model=SendEmailResponse,
     summary="Enviar un correo HTML con emojis 📧",
+    status_code=200,
     dependencies=[Depends(verify_api_key)],
     responses={
         401: {"model": ErrorResponse},

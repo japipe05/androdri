@@ -1,31 +1,61 @@
-// app/api/email/v1/route.ts
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   sendEmailService,
   SendEmailDTO,
 } from "@/infrastructure/contactservices";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const body: SendEmailDTO = await request.json();
+    const body = await request.json();
 
-    if (!body.nombre || !body.correo || !body.mensaje) {
+    const payload: SendEmailDTO = {
+      nombre: String(body.nombre ?? "").trim(),
+      correo: String(body.correo ?? "").trim(),
+      mensaje: String(body.mensaje ?? "").trim(),
+    };
+
+    if (!payload.nombre) {
       return NextResponse.json(
-        { message: "Datos incompletos" },
+        { message: "El nombre es obligatorio." },
         { status: 400 }
       );
     }
 
-    const result = await sendEmailService(body);
+    if (!payload.correo) {
+      return NextResponse.json(
+        { message: "El correo es obligatorio." },
+        { status: 400 }
+      );
+    }
 
-    return NextResponse.json(result, { status: 200 });
-  } catch (error) {
-    console.error("API Email Error:", error);
+    if (!payload.mensaje) {
+      return NextResponse.json(
+        { message: "El mensaje es obligatorio." },
+        { status: 400 }
+      );
+    }
+
+    const result = await sendEmailService(payload);
 
     return NextResponse.json(
-      { message: "Error enviando el correo" },
+      {
+        message: result.message || "Correo enviado correctamente.",
+      },
+      { status: 200 }
+    );
+  } catch (error: unknown) {
+    console.error("Error enviando correo:", error);
+
+    return NextResponse.json(
+      {
+        message:
+          error instanceof Error
+            ? error.message
+            : "No fue posible enviar el correo.",
+      },
       { status: 500 }
     );
   }
 }
+
